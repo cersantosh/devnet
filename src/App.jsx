@@ -4,21 +4,29 @@ import SignUp from "./pages/auth/signup.jsx";
 import Home from "./pages/home/home.jsx";
 import CreateProfile from "./pages/profile/create_profile.jsx";
 import JobPostingForm from "./pages/job/post_job.jsx";
-import PostUploadOptions from "./components/post/post.jsx";
-import Polls from "./components/post/polls.jsx";
-import EventUploadForm from "./components/post/event.jsx";
 import AskQuestionPage from "./pages/discussion/ask_a_question.jsx";
 import JobDetailsPage from "./pages/job/job_details.jsx";
 import JobsHomePage from "./pages/job/job_home.jsx";
 import DiscussionHome from "./pages/discussion/discussion_home.jsx";
 import QuestionDetailsPage from "./pages/discussion/question_details.jsx";
 import RichTextEditor from "./components/editor/text_editor.jsx";
+import Polls from "./pages/post/polls.jsx";
+import EventUploadForm from "./pages/events/upload_event.jsx";
+import PostUploadOptions from "./pages/post/post.jsx";
+import EventsHome from "./pages/events/events_home.jsx";
+import EventDetailsPage from "./pages/events/events_details.jsx";
+import OwnProfilePage from "./pages/profile/own_profile.jsx";
+import PostModal from "./components/post/post_modal.jsx";
+import PollsModal from "./components/post/polls_modal.jsx";
 
 const router = createBrowserRouter([
   {
     path: "/",
     // element: <Login/>
-    element: <Home />,
+    // element: <Home />,
+    // element : <PostModal/>
+    // element : <PollsModal/>
+    element : <OwnProfilePage/>
     // element : <PostUploadOptions/>
     // element : <AskQuestionPage/>
     // element : <Polls/>
@@ -29,16 +37,28 @@ const router = createBrowserRouter([
     // element: <JobsHomePage />,
   },
   {
+    path: "/create_profile",
+    element: <CreateProfile/>
+  },
+  {
     path: "/polls",
-    element: <Polls />,
+    element: <Polls/>
   },
   {
     path: "/events",
-    element: <EventUploadForm />,
+    element: <EventsHome />,
+  },
+  {
+    path: "/event_details",
+    element: <EventDetailsPage />,
+  },
+  {
+    path: "/upload_event",
+    element: <EventUploadForm/>
   },
   {
     path: "/create_post",
-    element: <PostUploadOptions />,
+    element: <PostUploadOptions/>
   },
   {
     path: "/login",

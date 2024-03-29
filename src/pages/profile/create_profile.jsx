@@ -1,16 +1,25 @@
 // ProfileForm.js
 import React, { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
-
+import {
+  hobbies,
+  skillsList,
+  socialMediasList,
+} from "../../constants/profile_constant.js";
 const CreateProfile = () => {
   const [selectedProfilePhoto, setSelectedProfilePhoto] = useState(null);
+  const [isSkillsEmpty, setIsSkillsEmpty] = useState(false);
+  const [isHobbiesEmpty, setIsHobbiesEmpty] = useState(false);
   const [formData, setFormData] = useState({
     profilePhoto: "",
     name: "",
-    username : "",
+    username: "",
     socialMedias: [],
     bio: "",
     skills: [],
+    education: "",
+    hobbies: [],
+    location: "",
   });
 
   const handleProfilePhotoUpload = (event) => {
@@ -19,6 +28,57 @@ const CreateProfile = () => {
     setFormData({ ...formData, profilePhoto: uniqueName });
     setSelectedProfilePhoto(file);
   };
+
+  const handleSkillsToggle = (skill) => {
+    const updatedSkills = formData.skills.includes(skill)
+      ? formData.skills.filter((s) => s !== skill)
+      : [...formData.skills, skill];
+    setFormData({ ...formData, skills: updatedSkills });
+  };
+
+  const handleHobbiesToggle = (hobby) => {
+    const updatedSkills = formData.hobbies.includes(hobby)
+      ? formData.hobbies.filter((s) => s !== hobby)
+      : [...formData.hobbies, hobby];
+    setFormData({ ...formData, hobbies: updatedSkills });
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleSocailMedias = (event) => {
+    const { value, name } = event.target;
+    const socialMediaToChange = formData.socialMedias.findIndex(
+      (socialMedia) => socialMedia.name === name
+    );
+
+    const socialMedias = formData.socialMedias;
+    socialMedias[socialMediaToChange].url = value;
+    setFormData({ ...formData, socialMedias });
+  };
+
+  const selectSocialMedia = (event) => {
+    const { name } = event.target;
+    const data = {
+      name,
+      url: "",
+    };
+    let socialMedias = formData.socialMedias;
+    const isSocialMediaAlreadyClicked = socialMedias.some(
+      (socialMedia) => socialMedia.name === name
+    );
+    if (isSocialMediaAlreadyClicked) {
+      socialMedias = socialMedias.filter(
+        (socialMedia) => socialMedia.name !== name
+      );
+    } else {
+      socialMedias.push(data);
+    }
+    setFormData({ ...formData, socialMedias });
+  };
+
   return (
     <div className="container mx-auto mt-8 p-8 bg-white shadow-lg rounded-md">
       <h1 className="text-2xl font-bold mb-4">Create Profile</h1>
@@ -32,7 +92,7 @@ const CreateProfile = () => {
                 <img
                   src={URL.createObjectURL(selectedProfilePhoto)}
                   alt="profile-photo"
-                  className="w-full h-full rounded-full"
+                  className="w-full h-full rounded-full object-cover"
                 />
               </label>
             )}
@@ -43,6 +103,7 @@ const CreateProfile = () => {
               className="hidden"
               accept="image/*"
               onChange={handleProfilePhotoUpload}
+              required
             />
             {!selectedProfilePhoto && (
               <label
@@ -65,12 +126,13 @@ const CreateProfile = () => {
         {/* User's Name */}
         <div className="mb-4">
           <label className="block text-sm font-medium text-gray-600">
-            User's Name
+            Name
           </label>
           <input
             type="text"
             className="mt-1 p-2 w-full border rounded-md"
             placeholder="Enter your full name"
+            required
           />
         </div>
 
@@ -83,6 +145,7 @@ const CreateProfile = () => {
             type="text"
             className="mt-1 p-2 w-full border rounded-md"
             placeholder="Enter your username"
+            required
           />
         </div>
 
@@ -91,23 +154,38 @@ const CreateProfile = () => {
           <label className="block text-sm font-medium text-gray-600">
             Education
           </label>
-          <input
+          <textarea
             type="text"
             className="mt-1 p-2 w-full border rounded-md"
             placeholder="Enter your education details"
+            required
           />
         </div>
 
         {/* Skills and Technologies */}
         <div className="mb-4">
           <label className="block text-sm font-medium text-gray-600">
-            Skills and Technologies
+            Skills
           </label>
-          <input
-            type="text"
-            className="mt-1 p-2 w-full border rounded-md"
-            placeholder="Enter your skills and technologies (comma-separated)"
-          />
+          <div className="flex flex-wrap">
+            {skillsList.map((skill) => (
+              <span
+                key={skill}
+                onClick={() => handleSkillsToggle(skill)}
+                className={`p-4 border rounded-md cursor-pointer m-2 ${
+                  formData.skills.includes(skill)
+                    ? "bg-blue-500 text-white"
+                    : "bg-white text-gray-800"
+                }`}
+              >
+                {skill}
+              </span>
+            ))}
+          </div>
+
+          {isSkillsEmpty && (
+            <p className="text-[red]">Please select at least one skilss.</p>
+          )}
         </div>
 
         {/* Hobbies */}
@@ -115,11 +193,25 @@ const CreateProfile = () => {
           <label className="block text-sm font-medium text-gray-600">
             Hobbies
           </label>
-          <input
-            type="text"
-            className="mt-1 p-2 w-full border rounded-md"
-            placeholder="Enter your hobbies"
-          />
+          <div className="flex flex-wrap">
+            {hobbies.map((hobby) => (
+              <span
+                key={hobby}
+                onClick={() => handleHobbiesToggle(hobby)}
+                className={`p-4 border rounded-md cursor-pointer m-2 ${
+                  formData.hobbies.includes(hobby)
+                    ? "bg-blue-500 text-white"
+                    : "bg-white text-gray-800"
+                }`}
+              >
+                {hobby}
+              </span>
+            ))}
+          </div>
+
+          {isHobbiesEmpty && (
+            <p className="text-[red]">Please select at least one hobbies.</p>
+          )}
         </div>
 
         {/* Location */}
@@ -145,15 +237,33 @@ const CreateProfile = () => {
         </div>
 
         {/* Social Media Links */}
+
         <div className="mb-4">
           <label className="block text-sm font-medium text-gray-600">
-            Social Media Links
+            Social Medias
           </label>
-          <input
-            type="text"
-            className="mt-1 p-2 w-full border rounded-md"
-            placeholder="Enter your social media links (comma-separated)"
-          />
+          {socialMediasList.map((socialMedia, index) => (
+            <div key={index} className="flex items-center mt-1">
+              <input
+                type="checkbox"
+                id={socialMedia}
+                name={socialMedia}
+                className="mr-2"
+                onChange={selectSocialMedia}
+              />
+              <label htmlFor={socialMedia}>{socialMedia}</label>
+              {formData.socialMedias.some((s) => s.name === socialMedia) && (
+                <input
+                  type="url"
+                  name={socialMedia}
+                  id={socialMedia}
+                  placeholder={`Enter ${socialMedia} URL`}
+                  className="ml-2 p-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300"
+                  onChange={handleSocailMedias}
+                />
+              )}
+            </div>
+          ))}
         </div>
 
         {/* Submit Button */}

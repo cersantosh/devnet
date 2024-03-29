@@ -4,6 +4,7 @@ import SearchBar from "../../components/buttons/search_bar";
 import { useNavigate } from "react-router-dom";
 
 const DiscussionHome = () => {
+  const navigate = useNavigate();
   const [isGeneralButtonClicked, setIsGeneralButtonClicked] = useState(true);
   const [isVoteClicked, setIsVoteClicked] = useState(false);
   const [question, setQuestion] = useState({
@@ -38,6 +39,9 @@ const DiscussionHome = () => {
       <NavBar />
       <SearchBar placeholder="Search Questions..." />
       <FilterQuestionOptions />
+      <div className="fixed right-0 top-[50%] translate-y-[-50%] rotate-90 bg-gray-400 cursor-pointer" onClick={() => navigate("/ask_question")}>
+        Ask Question
+      </div>
       <div className="flex space-x-4 justify-center">
         <button
           className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"

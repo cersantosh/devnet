@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import ImageSlider from "../image_slider";
+import ImageSlider from "../../components/image_slider.jsx";
 
 const PostUploadOptions = () => {
   const [postText, setPostText] = useState("");
@@ -14,7 +14,6 @@ const PostUploadOptions = () => {
   };
 
   const handleImageChange = (event) => {
-    console.log("i am calling");
     const images = event.target.files;
     setSelectedImages([...images]);
     event.target.value = "";
@@ -41,6 +40,22 @@ const PostUploadOptions = () => {
   /* end : GIF related methods */
 
   /* start : image slider related methods */
+  const handlePrevClick = () => {
+    setCurrentImageIndex((prevIndex) => {
+      const newIndex =
+        prevIndex === 0 ? selectedImages.length - 1 : prevIndex - 1;
+      return newIndex;
+    });
+  };
+
+  const handleNextClick = () => {
+    setCurrentImageIndex((prevIndex) => {
+      const newIndex =
+        prevIndex === selectedImages.length - 1 ? 0 : prevIndex + 1;
+      return newIndex;
+    });
+  };
+
   const deleteSelectedImage = (index) => {
     const images = [...selectedImages];
     images.splice(index, 1);
@@ -54,18 +69,6 @@ const PostUploadOptions = () => {
       return newIndex;
     });
     setSelectedImages(images);
-  };
-
-  const handlePrevClick = () => {
-    setCurrentImageIndex((prevIndex) =>
-      prevIndex === 0 ? selectedImages.length - 1 : prevIndex - 1
-    );
-  };
-
-  const handleNextClick = () => {
-    setCurrentImageIndex((prevIndex) =>
-      prevIndex === selectedImages.length - 1 ? 0 : prevIndex + 1
-    );
   };
 
   /* end : image slider related methods */
@@ -110,10 +113,10 @@ const PostUploadOptions = () => {
             onClick={() => deleteSelectedImage(currentImageIndex)}
           ></i>
           <ImageSlider
-            selectedImages={selectedImages}
-            onNextClick={handleNextClick}
-            onPrevClick={handlePrevClick}
+            images={selectedImages}
             currentImageIndex={currentImageIndex}
+            onPrevClick={handlePrevClick}
+            onNextClick={handleNextClick}
           />
         </div>
       )}

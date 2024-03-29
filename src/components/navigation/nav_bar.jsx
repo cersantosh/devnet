@@ -1,11 +1,17 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import Sidebar from "../settings/sidebar";
 
 const NavBar = () => {
   const [showPostOptions, setShowPostOptions] = useState(false);
+  const [showUserSettings, setShowUserSettings] = useState(false);
+
 
   const handlePostOptionsToggle = () => {
     setShowPostOptions(!showPostOptions);
+  };
+  const handleUserSettings = () => {
+    setShowUserSettings(!showUserSettings);
   };
 
   return (
@@ -31,11 +37,13 @@ const NavBar = () => {
             ></i>
           </div>
           <div className="hover:cursor-pointer">
-            <i className="fa-solid fa-user text-white"></i>
+            <i className="fa-solid fa-user text-white" onClick={handleUserSettings}></i>
           </div>
         </div>
       </div>
       {showPostOptions && <PostOptions />}
+      {showUserSettings && <Sidebar />}
+
     </nav>
   );
 };
@@ -59,7 +67,7 @@ const PostOptions = () => {
           <Link to="/create_post">Create Post</Link>
         </li>
         <li>
-          <Link to="/events">Create Events</Link>
+          <Link to="/upload_event">Create Events</Link>
         </li>
         <li>
           <Link to="/polls">Create Polls</Link>
