@@ -4,7 +4,7 @@ import { useState } from "react";
   1. first select all the bold elements from specific element
   2. check bold element contains the selected text or not using range.intersectNodes()
   3. now create bold tag and insert that tag to selected text
-  4. after finding bold tag and replace that tag with text nod to remove the effect of bold
+  4. after finding bold tag and replace that tag with text node to remove the effect of bold
 
 */
 const RichTextEditor = () => {
@@ -285,4 +285,4 @@ const URLInput = ({ handleLinkChange, addLink }) => {
   );
 };
 
-export default RichTextEditor;
+// export default RichTextEditor;

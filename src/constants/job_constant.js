@@ -31,6 +31,7 @@ const jobsCategories = [
   "Rust Developer",
   "Objective-C Developer",
   "Dart Developer",
+  "Flutter Developer",
   "Scala Developer",
   "Others",
 ];

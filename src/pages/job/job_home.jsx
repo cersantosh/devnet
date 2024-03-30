@@ -74,8 +74,8 @@ const JobSearchAndFilter = () => {
           required
         />
         <datalist id="job-categories">
-          {jobsCategories.map((cat) => (
-            <option key={cat} value={cat} />
+          {jobsCategories.map((category) => (
+            <option key={category} value={category} />
           ))}
         </datalist>
         <i class="fa-brands fa-searchengin"></i>
@@ -83,6 +83,7 @@ const JobSearchAndFilter = () => {
 
       {/* Filter Options */}
       <div className="flex space-x-4">
+        {/* job posted time */}
         <div className="flex items-center">
           <input
             type="text"
@@ -99,6 +100,7 @@ const JobSearchAndFilter = () => {
           </datalist>
         </div>
 
+        {/* country */}
         <div className="flex items-center">
           <input
             type="text"
@@ -115,6 +117,7 @@ const JobSearchAndFilter = () => {
           </datalist>
         </div>
 
+        {/* job type */}
         <div className="flex items-center">
           <input
             type="text"
@@ -131,6 +134,7 @@ const JobSearchAndFilter = () => {
           </datalist>
         </div>
 
+        {/* experience level */}
         <div className="flex items-center">
           <input
             type="text"
@@ -147,6 +151,7 @@ const JobSearchAndFilter = () => {
           </datalist>
         </div>
 
+        {/* salary */}
         <div className="flex items-center">
           <input
             type="text"
@@ -156,6 +161,7 @@ const JobSearchAndFilter = () => {
           />
         </div>
       </div>
+      {/* filter button */}
       <button className="py-2 px-4 bg-blue-500 text-white rounded-md mt-2 w-[100px]">
         Filter
       </button>

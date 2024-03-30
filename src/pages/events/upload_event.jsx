@@ -112,14 +112,14 @@ const EventUploadForm = () => {
         {/* Registration Link */}
         <div>
           <label className="block text-sm font-medium text-gray-600 mb-2">
-            How to apply <span className="text-[red]">*</span>
+            Registration Link <span className="text-[red]">*</span>
           </label>
-          <textarea
-            type="text"
+          <input
+            type="url"
             className="mb-4 p-2 w-full border rounded-md"
-            placeholder="Enter registration details"
+            placeholder="Enter registration link"
             required
-          ></textarea>
+          />
         </div>
 
         {/* Submit Button */}

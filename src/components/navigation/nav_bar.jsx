@@ -6,7 +6,6 @@ const NavBar = () => {
   const [showPostOptions, setShowPostOptions] = useState(false);
   const [showUserSettings, setShowUserSettings] = useState(false);
 
-
   const handlePostOptionsToggle = () => {
     setShowPostOptions(!showPostOptions);
   };
@@ -29,21 +28,21 @@ const NavBar = () => {
         </ul>
 
         <div className="flex space-x-4">
-          <div>
-            <i
-              className="fa-solid fa-bars text-white hover:cursor-pointer"
-              title="Menu"
-              onClick={handlePostOptionsToggle}
-            ></i>
-          </div>
-          <div className="hover:cursor-pointer">
-            <i className="fa-solid fa-user text-white" onClick={handleUserSettings}></i>
-          </div>
+          <i
+            className="fa-solid fa-bars text-white hover:cursor-pointer"
+            title="Menu"
+            onClick={handlePostOptionsToggle}
+          ></i>
+          <i
+            className="fa-solid fa-user text-white"
+            onClick={handleUserSettings}
+          ></i>
+          <i className="fa-solid fa-bell text-white"></i>
+          <i className="fa-solid fa-message text-white"></i>
         </div>
       </div>
       {showPostOptions && <PostOptions />}
       {showUserSettings && <Sidebar />}
-
     </nav>
   );
 };

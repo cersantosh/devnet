@@ -9,7 +9,6 @@ import JobDetailsPage from "./pages/job/job_details.jsx";
 import JobsHomePage from "./pages/job/job_home.jsx";
 import DiscussionHome from "./pages/discussion/discussion_home.jsx";
 import QuestionDetailsPage from "./pages/discussion/question_details.jsx";
-import RichTextEditor from "./components/editor/text_editor.jsx";
 import Polls from "./pages/post/polls.jsx";
 import EventUploadForm from "./pages/events/upload_event.jsx";
 import PostUploadOptions from "./pages/post/post.jsx";
@@ -18,15 +17,17 @@ import EventDetailsPage from "./pages/events/events_details.jsx";
 import OwnProfilePage from "./pages/profile/own_profile.jsx";
 import PostModal from "./components/post/post_modal.jsx";
 import PollsModal from "./components/post/polls_modal.jsx";
+import RichTextEditor from "./components/editor/rich_text_editor.jsx";
 
 const router = createBrowserRouter([
   {
     path: "/",
     // element: <Login/>
-    // element: <Home />,
+    element: <Home />,
+    // element: <RichTextEditor/>
     // element : <PostModal/>
     // element : <PollsModal/>
-    element : <OwnProfilePage/>
+    // element : <OwnProfilePage/>
     // element : <PostUploadOptions/>
     // element : <AskQuestionPage/>
     // element : <Polls/>

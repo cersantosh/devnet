@@ -3,6 +3,7 @@ import {
   questionCategories,
   errorCategories,
 } from "../../constants/discussion_constant";
+import RichTextEditor from "../../components/editor/rich_text_editor";
 
 const AskQuestionPage = () => {
   const [question, setQuestion] = useState("");
@@ -73,15 +74,7 @@ const AskQuestion = () => {
           >
             Describe Your Question <span className="text-red-500">*</span>
           </label>
-          <textarea
-            id="question"
-            className="w-full p-2 border rounded-md outline-none focus:border-blue-500"
-            rows="4"
-            placeholder="Describe your question"
-            value={question}
-            onChange={(e) => setQuestion(e.target.value)}
-            required
-          ></textarea>
+          <RichTextEditor placeholder="Describe your question ..."/>
         </div>
 
         <div className="mb-4">
@@ -176,13 +169,7 @@ const SolveAnError = () => {
           >
             Problem Description <span className="text-[red]">*</span>
           </label>
-          <textarea
-            id="question"
-            className="w-full p-2 border rounded-md outline-none focus:border-blue-500"
-            rows="4"
-            placeholder="Describe the problem..."
-            required
-          ></textarea>
+          <RichTextEditor placeholder="Describe the problem ..."/>
         </div>
 
         <div className="mb-4">
