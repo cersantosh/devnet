@@ -10,6 +10,24 @@ const DiscussionHome = () => {
   const [isVoteClicked, setIsVoteClicked] = useState(false);
   const [question, setQuestion] = useState({
     title: "How to use React Hooks ?",
+    description:
+      "I want to create a real time chat app and i am facing that error",
+    voteCount: 15,
+    answersCount: 5,
+    category: "React",
+    askedTime: "2 hours ago",
+    askedUser: {
+      name: "John Doe",
+      profilePhoto: "assets/images/image1.jpg",
+    },
+  });
+
+  const [errorQuestion, setErrorQuestion] = useState({
+    title: "CORS error in node js",
+    description:
+      "I want to create a real time chat app and i am facing that error",
+    errorMessage: "can't access a specified resource",
+    code: "write some code here",
     voteCount: 15,
     answersCount: 5,
     category: "React",
@@ -21,7 +39,7 @@ const DiscussionHome = () => {
   });
 
   const handleVote = (event) => {
-    event.stopPropagation()
+    event.stopPropagation();
     const updatedVoteClicked = !isVoteClicked;
     setIsVoteClicked(!isVoteClicked);
     if (updatedVoteClicked) {
@@ -63,25 +81,43 @@ const DiscussionHome = () => {
         </button>
       </div>
 
-      <div className="space-y-2">
-        {[1, 2, 3, 4].map((q, index) => (
-          <QuestionModal
-            question={question}
-            key={index}
-            handleVote={handleVote}
-          />
-        ))}
-      </div>
+      {isGeneralButtonClicked ? (
+        <div className="space-y-2">
+          {[1, 2, 3, 4].map((q, index) => (
+            <QuestionModal
+              question={question}
+              key={index}
+              handleVote={handleVote}
+              isGeneralButtonClicked={isGeneralButtonClicked}
+            />
+          ))}
+        </div>
+      ) : (
+        <div className="space-y-2">
+          {[1, 2, 3, 4].map((q, index) => (
+            <QuestionModal
+              question={errorQuestion}
+              key={index}
+              handleVote={handleVote}
+              isGeneralButtonClicked={isGeneralButtonClicked}
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 };
 
-const QuestionModal = ({ question, handleVote }) => {
+const QuestionModal = ({ question, handleVote, isGeneralButtonClicked }) => {
   const navigate = useNavigate();
   return (
     <div
       className="bg-white p-4 rounded-md shadow-md hover:cursor-pointer"
-      onClick={() => navigate("/question_details", { state: { question } })}
+      onClick={() =>
+        isGeneralButtonClicked
+          ? navigate("/question_details", { state: { question } })
+          : navigate("/error_details", { state: { question } })
+      }
     >
       {/* Question Section */}
       <div className="flex">
@@ -137,9 +173,8 @@ const FilterQuestionOptions = ({ onFilterChange }) => {
 
   return (
     <div className="flex justify-center space-x-4">
-       
-       {/* filter by category */}
-       <div>
+      {/* filter by category */}
+      <div>
         <input
           type="text"
           id="filterOptions"
@@ -149,10 +184,10 @@ const FilterQuestionOptions = ({ onFilterChange }) => {
           onChange={handleFilterChange}
         />
         <datalist id="categories">
-            {questionCategories.map((cat) => (
-              <option key={cat} value={cat} />
-            ))}
-          </datalist>
+          {questionCategories.map((cat) => (
+            <option key={cat} value={cat} />
+          ))}
+        </datalist>
       </div>
       {/* Filter by Unanswered or Answers */}
       <div>

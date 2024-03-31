@@ -51,30 +51,43 @@ const AskQuestion = () => {
   const handleSubmit = () => {};
 
   const handleTags = (event) => {
-
     const value = event.target.value;
-    if(value.includes(".")){
+    if (value.includes(".")) {
       const prevTags = [...tags];
       prevTags.push(value.replace(".", ""));
-      setTags(prevTags)
+      setTags(prevTags);
       event.target.value = "";
     }
-
-  }
+  };
 
   return (
     <div>
       <h1 className="text-2xl font-bold mb-4">Ask a Question</h1>
 
       <form action="">
+        {/* question title */}
         <div className="mb-4">
           <label
             htmlFor="question"
             className="block text-gray-700 font-bold mb-2"
           >
-            Describe Your Question <span className="text-red-500">*</span>
+            Question title <span className="text-[red]">*</span>
           </label>
-          <RichTextEditor placeholder="Describe your question ..."/>
+          <input
+            type="text"
+            className="w-full p-2 border rounded-md outline-none focus:border-blue-500"
+            placeholder="Enter question title"
+          />
+        </div>
+
+        <div className="mb-4">
+          <label
+            htmlFor="question"
+            className="block text-gray-700 font-bold mb-2"
+          >
+            Describe Your Question :
+          </label>
+          <RichTextEditor placeholder="Describe your question ..." />
         </div>
 
         <div className="mb-4">
@@ -111,9 +124,9 @@ const AskQuestion = () => {
             onChange={handleTags}
           />
           <div className="flex flex-wrap space-x-2">
-            {
-              tags.map((tag) => <p className="bg-amber-50 p-1">{tag}</p>)
-            }
+            {tags.map((tag) => (
+              <p className="bg-amber-50 p-1">{tag}</p>
+            ))}
           </div>
         </div>
 
@@ -133,16 +146,14 @@ const AskQuestion = () => {
 const SolveAnError = () => {
   const [tags, setTags] = useState([]);
   const handleTags = (event) => {
-
     const value = event.target.value;
-    if(value.includes(".")){
+    if (value.includes(".")) {
       const prevTags = [...tags];
       prevTags.push(value.replace(".", ""));
-      setTags(prevTags)
+      setTags(prevTags);
       event.target.value = "";
     }
-
-  }
+  };
   return (
     <div>
       <h1 className="text-2xl font-bold mb-4">Solve Your Issue</h1>
@@ -162,6 +173,7 @@ const SolveAnError = () => {
           />
         </div>
 
+        {/* problem description */}
         <div className="mb-4">
           <label
             htmlFor="question"
@@ -169,9 +181,10 @@ const SolveAnError = () => {
           >
             Problem Description <span className="text-[red]">*</span>
           </label>
-          <RichTextEditor placeholder="Describe the problem ..."/>
+          <RichTextEditor placeholder="Describe the problem ..." />
         </div>
 
+        {/* error message */}
         <div className="mb-4">
           <label
             htmlFor="errorMessage"
@@ -186,6 +199,7 @@ const SolveAnError = () => {
           ></textarea>
         </div>
 
+        {/* code */}
         <div className="mb-4">
           <label
             htmlFor="codeSnippet"
@@ -201,6 +215,7 @@ const SolveAnError = () => {
           ></textarea>
         </div>
 
+        {/* category */}
         <div className="mb-4">
           <label
             htmlFor="category"
@@ -223,6 +238,7 @@ const SolveAnError = () => {
           </datalist>
         </div>
 
+        {/* tags */}
         <div>
           <label htmlFor="tags" className="block mb-2">
             Tags <span className="text-[red]">*</span>
@@ -235,9 +251,9 @@ const SolveAnError = () => {
             onChange={handleTags}
           />
           <div className="flex flex-wrap space-x-2">
-            {
-              tags.map((tag) => <p className="bg-amber-50 p-1">{tag}</p>)
-            }
+            {tags.map((tag) => (
+              <p className="bg-amber-50 p-1">{tag}</p>
+            ))}
           </div>
         </div>
 

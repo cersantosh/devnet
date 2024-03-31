@@ -12,7 +12,7 @@ const EventModal = ({ event, onClick }) => {
   };
   return (
     <div
-      className="bg-white rounded-lg shadow-lg mb-3 relative"
+      className="bg-white rounded-lg shadow-lg mb-3 relative w-full"
       onClick={onClick}
     >
       <div className="p-4 flex flex-col justify-center items-center">

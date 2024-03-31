@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 import RichTextEditor from "../../components/editor/rich_text_editor";
 
-const QuestionDetailsPage = () => {
+const ErrorDetailsPage = () => {
   const location = useLocation();
-  const question = location.state && location.state.question;
+  const errorQuestion = location.state && location.state.question;
   const [userAnswer, setUserAnswer] = useState("");
   let tempUserAnswer = "";
 
@@ -33,32 +33,46 @@ const QuestionDetailsPage = () => {
         {/* user details */}
         <div className="flex flex-col justify-center items-center mr-2">
           <img
-            src={question.askedUser.profilePhoto}
+            src={errorQuestion.askedUser.profilePhoto}
             alt=""
             className="w-10 h-10 rounded-full"
           />
-          <p>{question.askedUser.name}</p>
+          <p>{errorQuestion.askedUser.name}</p>
         </div>
 
-        <h1 className="text-2xl font-bold mb-4">{question.title}</h1>
+        <h1 className="text-2xl font-bold mb-4">{errorQuestion.title}</h1>
       </div>
 
-       {/* Question description */}
-       <div className="mb-6">
-          <h2 className="text-xl font-bold mb-2">Question Description:</h2>
-          <p className="text-gray-700">{question.description}</p>
+      <div className="mt-2">
+        {/* Problem description */}
+        <div className="mb-6">
+          <h2 className="text-xl font-bold mb-2">Problem Description:</h2>
+          <p className="text-gray-700">{errorQuestion.description}</p>
         </div>
+
+        {/* Error message */}
+        <div className="mb-6">
+          <h2 className="text-xl font-bold mb-2">Error Message:</h2>
+          <p className="text-gray-700">{errorQuestion.errorMessage}</p>
+        </div>
+
+        {/* Error code */}
+        <div>
+          <h2 className="text-xl font-bold mb-2">Code:</h2>
+          <p className="text-gray-700">{errorQuestion.code}</p>
+        </div>
+      </div>
 
       {/* answers count and vote count */}
       <div className="flex justify-center items-end space-x-5">
         {/* vote count */}
         <div className="flex flex-col justify-center items-center hover:cursor-pointer">
-          <p className="text-gray-600">{question.voteCount}</p>
+          <p className="text-gray-600">{errorQuestion.voteCount}</p>
           <p>Votes</p>
         </div>
         {/* answer count */}
         <p className="cursor-pointer" onClick={viewAllAnswer}>
-          View {question.answersCount} Answers
+          View {errorQuestion.answersCount} Answers
         </p>
       </div>
 
@@ -70,11 +84,11 @@ const QuestionDetailsPage = () => {
               {/* user details */}
               <div className="flex flex-col justify-center items-center mr-2">
                 <img
-                  src={question.askedUser.profilePhoto}
+                  src={errorQuestion.askedUser.profilePhoto}
                   alt=""
                   className="w-10 h-10 rounded-full"
                 />
-                <p>{question.askedUser.name}</p>
+                <p>{errorQuestion.askedUser.name}</p>
               </div>
 
               <div>
@@ -128,4 +142,4 @@ const QuestionDetailsPage = () => {
   );
 };
 
-export default QuestionDetailsPage;
+export default ErrorDetailsPage;

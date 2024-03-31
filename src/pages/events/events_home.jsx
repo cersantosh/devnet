@@ -52,9 +52,11 @@ const EventsHome = () => {
     <div>
       <NavBar />
       <EventSearchAndFilter />
-      <div>
-        {events.map((event) => (
-          <EventModal event={event} onClick={() => showEventDetails(event)} />
+      <div className="flex flex-wrap gap-2 justify-center">
+        {[1, 2, 3, 4, 5, 6, 7, 8].map(() => (
+          <div className="w-[300px]">
+            <EventModal event={events[0]} onClick={() => showEventDetails(events[0])} />
+          </div>
         ))}
       </div>
     </div>

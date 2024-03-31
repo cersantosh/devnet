@@ -18,6 +18,7 @@ import OwnProfilePage from "./pages/profile/own_profile.jsx";
 import PostModal from "./components/post/post_modal.jsx";
 import PollsModal from "./components/post/polls_modal.jsx";
 import RichTextEditor from "./components/editor/rich_text_editor.jsx";
+import ErrorDetailsPage from "./pages/discussion/error_details.jsx";
 
 const router = createBrowserRouter([
   {
@@ -92,6 +93,10 @@ const router = createBrowserRouter([
   {
     path: "/question_details",
     element: <QuestionDetailsPage />,
+  },
+  {
+    path: "/error_details",
+    element: <ErrorDetailsPage />,
   },
   {
     path: "/text_editor",
