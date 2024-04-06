@@ -1,18 +1,9 @@
 import React from "react";
-import { useState } from "react";
-import PostSettings from "../post/post_settings";
 const EventModal = ({ event, onClick }) => {
-  const [isSettingClicked, setIsSettingClicked] = useState(false);
-  const closePostSettings = () => {
-    setIsSettingClicked(false);
-  };
-  const togglePostSettings = (event) => {
-    event.stopPropagation();
-    setIsSettingClicked(!isSettingClicked);
-  };
+
   return (
     <div
-      className="bg-white rounded-lg shadow-lg mb-3 relative w-full"
+      className="bg-white rounded-lg shadow-lg mb-3 relative w-full cursor-pointer"
       onClick={onClick}
     >
       <div className="p-4 flex flex-col justify-center items-center">

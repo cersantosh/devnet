@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 
-const DialogBox = ({isOpen, onClose, onAction, details}) => {
+const DialogBox = ({ isOpen, onClose, onAction, details }) => {
   return (
     <>
       {isOpen && (
-        <div className="fixed top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] inset-0 z-50 overflow-y-auto flex justify-center items-center">
+        <div className="fixed top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] inset-0 z-50 overflow-y-auto flex justify-center items-center text-[black]">
           <div className="relative bg-white rounded-lg p-8 w-96">
             <h2 className="text-xl font-semibold mb-4">{details.title}</h2>
             <p className="mb-6">{details.message}</p>

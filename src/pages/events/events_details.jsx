@@ -11,9 +11,9 @@ const EventDetailsPage = () => {
       <div>
         {/* Event Poster */}
         <div className="mb-6">
-          <label className="block text-sm font-medium text-gray-600 mb-2">
+          <p className="block text-sm font-medium text-gray-600 mb-2">
             Event Poster
-          </label>
+          </p>
           <img
             src="assets/images/image2.jpg"
             alt="Event Poster"
@@ -23,63 +23,69 @@ const EventDetailsPage = () => {
 
         {/* Event Title */}
         <div className="mb-6">
-          <label className="block text-sm font-medium text-gray-600 mb-2">
+          <p className="block text-sm font-medium text-gray-600 mb-2">
             Event Title
-          </label>
+          </p>
           <p className="text-lg font-semibold">{eventDetails.title}</p>
-        </div>
-
-        {/* Event Type */}
-        <div className="mb-6">
-          <label className="block text-sm font-medium text-gray-600 mb-2">
-            Event Type
-          </label>
-          <p className="text-gray-700">{eventDetails.type}</p>
         </div>
 
         {/* Event Description */}
         <div className="mb-6">
-          <label className="block text-sm font-medium text-gray-600 mb-2">
+          <p className="block text-sm font-medium text-gray-600 mb-2">
             Event Description
-          </label>
-          <p className="text-gray-700">
-          {eventDetails.description}
           </p>
-        </div>
-
-        {/* Event Date and Time */}
-        <div className="mb-6">
-          <label className="block text-sm font-medium text-gray-600 mb-2">
-            Event Date and Time
-          </label>
-          <p className="text-gray-700">{eventDetails.dateTime}</p>
-        </div>
-
-        {/* Event Location */}
-        <div className="mb-6">
-          <label className="block text-sm font-medium text-gray-600 mb-2">
-            Event Location
-          </label>
-          <p className="text-gray-700">{eventDetails.location}</p>
+          <p className="text-gray-700">{eventDetails.description}</p>
         </div>
 
         {/* Organizer Information */}
         <div className="mb-6">
-          <label className="block text-sm font-medium text-gray-600 mb-2">
+          <p className="block text-sm font-medium text-gray-600 mb-2">
             Organizer Information
-          </label>
-          <p className="text-gray-700">{eventDetails.organizerInfo}
           </p>
+          <p className="text-gray-700">{eventDetails.organizerInfo}</p>
         </div>
 
+        <table className="min-w-full divide-y divide-gray-200">
+        <thead className="bg-gray-50">
+          <tr>
+            <th
+              scope="col"
+              className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+            >
+              Event Type
+            </th>
+            <th
+              scope="col"
+              className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+            >
+              Event date and time
+            </th>
+            <th
+              scope="col"
+              className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+            >
+              Event location
+            </th>
+            
+          </tr>
+        </thead>
+        <tbody className="bg-white divide-y divide-gray-200">
+          <tr>
+            <td className="px-6 py-4 whitespace-nowrap">{eventDetails.type}</td>
+            <td className="px-6 py-4 whitespace-nowrap">{eventDetails.dateTime}</td>
+            <td className="px-6 py-4 whitespace-nowrap">{eventDetails.location}</td>
+          </tr>
+        </tbody>
+      </table>
+
+  
+
         {/* Registration Link */}
-        <div className="mb-6">
-          <label className="block text-sm font-medium text-gray-600 mb-2">
-            How to Apply
-          </label>
-          <p className="text-gray-700">{eventDetails.registration}
-          </p>
-        </div>
+        <button className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600">
+          <a href="" target="_blank">
+            Apply Now
+          </a>
+        </button>
       </div>
     </div>
   );

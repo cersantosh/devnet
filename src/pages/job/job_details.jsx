@@ -61,7 +61,7 @@ const JobDetailsPage = () => {
         <p className="text-gray-700">{education}</p>
       </div>
 
-      <table className="min-w-full divide-y divide-gray-200">
+      <table className="divide-y divide-gray-200">
         <thead className="bg-gray-50">
           <tr>
             <th

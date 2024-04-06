@@ -235,10 +235,10 @@ const OwnProfilePage = () => {
             </div>
           </div>
 
-          {/* posts, polls, events and jobs */}
+          {/* posts and polls */}
           <div className="bg-red-500 w-[70%]">
-            {/* posts, events, polls and jobs buttons */}
-            <div className="space-x-4 flex justify-center sticky top-1 bg-[red]">
+            {/* posts and events buttons */}
+            <div className="space-x-4 flex justify-center sticky top-0 z-10 bg-[red]">
               <button
                 className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
                 onClick={() => setSelectedOption("posts")}
@@ -250,18 +250,6 @@ const OwnProfilePage = () => {
                 onClick={() => setSelectedOption("polls")}
               >
                 Polls
-              </button>
-              <button
-                className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded"
-                onClick={() => setSelectedOption("events")}
-              >
-                Events
-              </button>
-              <button
-                className="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded"
-                onClick={() => setSelectedOption("jobs")}
-              >
-                Jobs
               </button>
             </div>
 
@@ -284,37 +272,6 @@ const OwnProfilePage = () => {
                   {[1, 2, 3, 4].map((poll) => (
                     <div className="relative">
                       <PollsModal />
-                      <PostSettingsIcon />
-                    </div>
-                  ))}
-                </>
-              )}
-
-              {/* showing events */}
-              {selectedOption === "events" && (
-                <>
-                  {events.map((event) => (
-                    <div className="relative">
-                      <EventModal
-                        event={event}
-                        onClick={() => showEventDetails(event)}
-                      />
-                      <PostSettingsIcon />
-                    </div>
-                  ))}
-                </>
-              )}
-
-              {/* showing jobs */}
-              {selectedOption === "jobs" && (
-                <>
-                  {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((job, index) => (
-                    <div className="relative">
-                      <JobModal
-                        key={index}
-                        jobInfo={jobInfo}
-                        onClick={showJobDetails}
-                      />
                       <PostSettingsIcon />
                     </div>
                   ))}

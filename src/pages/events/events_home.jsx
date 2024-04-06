@@ -1,6 +1,6 @@
 import React from "react";
 import NavBar from "../../components/navigation/nav_bar";
-import EventModal from "../../components/events/event_modal";
+import EventModal from "../../components/events/event_modal.jsx";
 import { eventsType } from "../../constants/events_constant.js";
 import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
@@ -35,7 +35,7 @@ const EventsHome = () => {
       poster: "url_to_event_poster_1",
       description: "Description of Event 1",
       type: "Hackathons",
-      location: "Location of Event 1",
+      location: "Location of Event 1 ",
       organizerInfo: "organizer_info",
       registration: "registration_link_1",
     },
@@ -53,9 +53,9 @@ const EventsHome = () => {
       <NavBar />
       <EventSearchAndFilter />
       <div className="flex flex-wrap gap-2 justify-center">
-        {[1, 2, 3, 4, 5, 6, 7, 8].map(() => (
-          <div className="w-[300px]">
-            <EventModal event={events[0]} onClick={() => showEventDetails(events[0])} />
+        {[1, 2, 3, 4, 5, 6, 7, 8].map((event, index) => (
+          <div className="w-[300px]" key={index}>
+           <EventModal event={events[0]} onClick={() => showEventDetails(events[0])} />
           </div>
         ))}
       </div>
@@ -82,8 +82,10 @@ const EventSearchAndFilter = () => {
             <option value="" disabled selected>
               Select Event Type
             </option>
-            {eventsType.map((eventType) => (
-              <option value={eventType.toLowerCase()}>{eventType}</option>
+            {eventsType.map((eventType, index) => (
+              <option value={eventType.toLowerCase()} key={index}>
+                {eventType}
+              </option>
             ))}
           </select>
         </div>

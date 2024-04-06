@@ -19,6 +19,10 @@ import PostModal from "./components/post/post_modal.jsx";
 import PollsModal from "./components/post/polls_modal.jsx";
 import RichTextEditor from "./components/editor/rich_text_editor.jsx";
 import ErrorDetailsPage from "./pages/discussion/error_details.jsx";
+import JobsSettings from "./pages/job/jobs_settings.jsx";
+import EventsSettings from "./pages/events/events_settings.jsx";
+import AccountSettings from "./pages/settings/account_settings.jsx";
+import QuestionsSettings from "./pages/discussion/questions_settings.jsx";
 
 const router = createBrowserRouter([
   {
@@ -59,6 +63,14 @@ const router = createBrowserRouter([
     element: <EventUploadForm/>
   },
   {
+    path: "/events_settings",
+    element: <EventsSettings/>
+  },
+  {
+    path: "/account_settings",
+    element: <AccountSettings/>
+  },
+  {
     path: "/create_post",
     element: <PostUploadOptions/>
   },
@@ -83,6 +95,10 @@ const router = createBrowserRouter([
     element: <JobPostingForm />,
   },
   {
+    path: "/jobs_settings",
+    element: <JobsSettings />,
+  },
+  {
     path: "/discussion",
     element: <DiscussionHome />,
   },
@@ -99,9 +115,17 @@ const router = createBrowserRouter([
     element: <ErrorDetailsPage />,
   },
   {
+    path: "/questions_settings",
+    element: <QuestionsSettings />,
+  },
+  {
     path: "/text_editor",
     element: <RichTextEditor />,
   },
+  {
+    path : "own_profile",
+    element : <OwnProfilePage/>
+  }
 ]);
 
 function App() {

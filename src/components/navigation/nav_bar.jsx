@@ -14,7 +14,7 @@ const NavBar = () => {
   };
 
   return (
-    <nav className="relative">
+    <nav className="sticky top-0 left-0 z-10">
       <div className="bg-gray-800 p-4 flex justify-between items-center">
         {/* Logo or Branding */}
         <div className="text-white font-bold">Logo</div>

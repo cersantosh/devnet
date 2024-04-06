@@ -1,50 +1,95 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-
+import DialogBox from "../dialog_box/dialog_box";
 const Sidebar = () => {
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+
+  const showDialog = () => {
+    setIsDialogOpen(!isDialogOpen);
+  };
+
+  const closeDialog = () => {
+    setIsDialogOpen(false);
+  };
+
+  const logout = () => {};
+
   return (
-    <div className="absolute right-0 w-64 bg-gray-800 text-white flex flex-col">
+    <div className="absolute right-0 w-64 bg-gray-800 text-white flex flex-col border border-[red] h-[calc(100vh-56px)]">
       <div className="p-4">
         <h2 className="text-xl font-semibold mb-4">User Menu</h2>
         <ul>
           <li className="mb-2">
-            <Link to="/create_profile" className="block py-2 px-4 hover:bg-gray-700">
-            Create Profile
+            <Link
+              to="/own_profile"
+              className="block py-2 px-4 hover:bg-gray-700"
+            >
+              Profile
             </Link>
           </li>
           <li className="mb-2">
-            <a href="#" className="block py-2 px-4 hover:bg-gray-700">
+            <Link
+              to="/jobs_settings"
+              className="block py-2 px-4 hover:bg-gray-700"
+            >
               Jobs
-            </a>
+            </Link>
           </li>
 
           <li className="mb-2">
-            <a href="#" className="block py-2 px-4 hover:bg-gray-700">
+            <Link
+              to="/events_settings"
+              className="block py-2 px-4 hover:bg-gray-700"
+            >
               Events
-            </a>
+            </Link>
           </li>
 
           <li className="mb-2">
-            <a href="#" className="block py-2 px-4 hover:bg-gray-700">
+            <Link
+              to="/questions_settings"
+              className="block py-2 px-4 hover:bg-gray-700"
+            >
               Questions
-            </a>
+            </Link>
           </li>
 
           <li className="mb-2">
             <a href="#" className="block py-2 px-4 hover:bg-gray-700">
-              Account Settings
+              Groups
             </a>
           </li>
+
           <li className="mb-2">
-            <a href="#" className="block py-2 px-4 hover:bg-gray-700">
-              Privacy Settings
-            </a>
+            <Link
+              to="/account_settings"
+              className="block py-2 px-4 hover:bg-gray-700"
+            >
+              Account Settings
+            </Link>
           </li>
         </ul>
       </div>
-      <a href="#" className="block py-2 px-4 hover:bg-gray-700">
-        Log Out
-      </a>
+      <div>
+        <p
+          className="block py-2 px-4 hover:bg-gray-700 cursor-pointer"
+          onClick={showDialog}
+        >
+          Log Out
+        </p>
+        {isDialogOpen && (
+          <DialogBox
+            isOpen={isDialogOpen}
+            onClose={closeDialog}
+            onAction={logout}
+            details={{
+              title: "Logout",
+              message: "Are you sure want to logout",
+              actionName: "Logout",
+            }}
+          />
+        )}
+      </div>
     </div>
   );
 };
