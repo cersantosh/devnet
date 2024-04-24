@@ -1,9 +1,10 @@
 import mongoose from "mongoose";
 const userProfileSchema = new mongoose.Schema(
   {
-    profile_photo: {
-      type: String,
-      required: true,
+    user_info : {
+      type : mongoose.Schema.Types.ObjectId,
+      ref : "users",
+      required : true
     },
     education: {
       type: String,
