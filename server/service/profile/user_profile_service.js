@@ -14,7 +14,6 @@ class UserProfileService {
         return profile;
       }
       return null;
-
     } catch (error) {
       console.log(`Error while creating proifle : ${error.message}`);
     }

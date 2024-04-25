@@ -22,7 +22,7 @@ class UserProfileController {
 
   async getAllProfiles(req, res) {
     try {
-      const allProfiles = await userProfileService.getAllUsers();
+      const allProfiles = await userProfileService.getAllProfiles();
       res.status(200).json({
         success: true,
         message: "All profiles fetched successfully",
@@ -35,7 +35,7 @@ class UserProfileController {
   async fetchProfileById(req, res) {
     try {
       const { id } = req.params;
-      const profile = await userProfileService.readUserById(id);
+      const profile = await userProfileService.fetchProfileById(id);
       res.status(200).json({
         success: true,
         message: "Profile fetched with id",
@@ -49,7 +49,7 @@ class UserProfileController {
     try {
       const { id } = req.params;
       const data = req.body;
-      const profile = await userProfileService.editUserById(id, data);
+      const profile = await userProfileService.editProfileById(id, data);
       res.status(200).json({
         success: true,
         message: "Profile updated with id",
@@ -63,7 +63,7 @@ class UserProfileController {
   async deleteProfileById(req, res) {
     try {
       const { id } = req.params;
-      const profile = await userProfileService.deleteUserById(id);
+      const profile = await userProfileService.deleteProfileById(id);
       res.status(200).json({
         success: true,
         message: "Profile deleted with given id",
@@ -76,7 +76,7 @@ class UserProfileController {
   async searchProfile(req, res) {
     try {
       const { search_term } = req.query;
-      const profile = await userProfileService.searchUser(search_term);
+      const profile = await userProfileService.searchProfile(search_term);
       res.status(200).json({
         success: true,
         message: "Profile searched with given search term",
