@@ -1,4 +1,4 @@
-import JobService from "../../../../service/job/job_service";
+import JobService from "../../../../service/job/job_service.js";
 const jobService = new JobService();
 class JobController {
   async createJob(req, res) {
@@ -20,7 +20,8 @@ class JobController {
       res.status(200).json({
         success: true,
         message: "All jobs fetched successfully",
-        response: allJobs,
+        count : allJobs.length,
+        response: allJobs
       });
     } catch (error) {
       res.status(500).json({ success: false, message: error });
@@ -82,7 +83,13 @@ class JobController {
   }
   async filterJob(req, res) {
     try {
-      jobService.filterJob(query);
+      const query = req.query;
+      const jobs = await jobService.filterJob(query);
+      res.status(200).json({
+        success: true,
+        message: "Job filtered with given filter options",
+        response: jobs,
+      });
     } catch (error) {
       res.status(500).json({ success: false, message: error });
     }

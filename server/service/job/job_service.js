@@ -40,20 +40,23 @@ class JobService {
   }
   async searchJob(search_term) {
     try {
-      return await jobModel.find({
-        $or: [
-          { title: { $regex: search_term, $options: "i" } },
-          { skills_required: { $in: search_term } },
-          { hobbies: { $in: search_term } },
-          { description: { $regex: search_term, $options: "i" } },
-          { location: { $regex: search_term, $options: "i" } },
-          { job_type: { $regex: search_term, $options: "i" } },
-          { experience: { $regex: search_term, $options: "i" } },
-          { education: { $regex: search_term, $options: "i" } },
-          { salary_range: { $regex: search_term, $options: "i" } },
-          { country: { $regex: search_term, $options: "i" } },
-        ],
-      });
+      return await jobModel
+        .find({
+          $or: [
+            { title: { $regex: search_term, $options: "i" } },
+            { skills_required: { $in: search_term } },
+            { description: { $regex: search_term, $options: "i" } },
+            { location: { $regex: search_term, $options: "i" } },
+            { job_type: { $regex: search_term, $options: "i" } },
+            { experience: { $regex: search_term, $options: "i" } },
+            { experience_level: { $regex: search_term, $options: "i" } },
+
+            { education: { $regex: search_term, $options: "i" } },
+            { salary_range: { $regex: search_term, $options: "i" } },
+            { country: { $regex: search_term, $options: "i" } },
+          ],
+        })
+        .populate("user_info company_info");
     } catch (error) {
       console.log(`Error while searching job : ${error}`);
     }
@@ -91,14 +94,14 @@ class JobService {
         query.experience_level = filterOptions.experience_level;
       }
 
-      if (filterOptions.salary_range) {
-        const range = filterOptions.salary_range.split("-");
-        const low = range[0];
-        const high = range[1];
-        query.salary_range = filterOptions.salary_range;
-      }
+      // if (filterOptions.salary_range) {
+      //   const range = filterOptions.salary_range.split("-");
+      //   const low = range[0];
+      //   const high = range[1];
+      //   query.salary_range = filterOptions.salary_range;
+      // }
 
-      return await answerModel.find(query);
+      return await jobModel.find(query).populate("user_info company_info");
     } catch (error) {
       console.log(`Error while filtering jobs : ${error}`);
     }

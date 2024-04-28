@@ -1,15 +1,13 @@
 import mongoose from "mongoose";
 const eventSchema = new mongoose.Schema(
   {
-    userInfo : {
-      type : mongoose.Schema.Types.ObjectId,
-      ref : "users",
-      required : true
+    user_info: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "users",
     },
-    companyInfo : {
-      type : mongoose.Schema.Types.ObjectId,
-      ref : "companies",
-      required : true
+    company_info: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "companies",
     },
     event_poster: {
       type: String,
@@ -27,13 +25,9 @@ const eventSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    date_time: {
-      date: {
-        type: Date,
-      },
-      time: {
-        type: Time,
-      },
+    event_date: {
+      type: Date,
+      required: true,
     },
     location: {
       type: String,
