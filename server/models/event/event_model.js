@@ -4,10 +4,7 @@ const eventSchema = new mongoose.Schema(
     user_info: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "users",
-    },
-    company_info: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "companies",
+      required : true,
     },
     event_poster: {
       type: String,

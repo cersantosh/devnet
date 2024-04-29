@@ -21,9 +21,13 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    profile_info: {
+    user_profile_info: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "profiles",
+      ref: "user_profiles",
+    },
+    company_profile_info: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "company_profiles",
     },
   },
   {

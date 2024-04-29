@@ -8,6 +8,8 @@ import errorAnswerRoutes from "./discussion/error_answer_routes.js";
 import profileRoutes from "./profile/user_profile_routes.js";
 import jobRoutes from "./job/job_routes.js";
 import eventRoutes from "./event/event_routes.js";
+import postRoutes from "./post/post_routes.js";
+import pollRoutes from "./post/poll_routes.js";
 
 const v1Routes = express.Router();
 
@@ -20,5 +22,7 @@ v1Routes.use("/answer/error", errorAnswerRoutes);
 v1Routes.use("/profile", profileRoutes);
 v1Routes.use("/job", jobRoutes);
 v1Routes.use("/event", eventRoutes);
+v1Routes.use("/poll", pollRoutes);
+v1Routes.use("/post", postRoutes);
 
 export default v1Routes;
