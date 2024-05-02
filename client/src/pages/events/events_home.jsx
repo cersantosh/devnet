@@ -63,7 +63,7 @@ const EventsHome = () => {
   );
 };
 
-const EventSearchAndFilter = () => {
+export const EventSearchAndFilter = () => {
   const fromDateRef = useRef();
   const toDateRef = useRef();
   return (
