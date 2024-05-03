@@ -115,7 +115,7 @@ const JobsSettings = () => {
   };
   return (
     <>
-      <header className="fixed top-0 left-0 w-full bg-gray-800 text-center text-white p-4">
+      <header className="fixed top-0 left-0 w-full z-10 bg-gray-800 text-center text-white p-4">
         {/* Header content */}
         Available Jobs
       </header>
