@@ -4,6 +4,11 @@ const postService = new PostService();
 class PostController {
   async createPost(req, res) {
     try {
+      const images = [];
+      for (let file of req.files) {
+        images.push(file.filename);
+      }
+      req.body.images = images;
       const post = await postService.createPost(req.body);
       res.status(200).json({
         success: true,
@@ -139,8 +144,20 @@ class PostController {
     }
   }
 
-
-
+  async updateLikes(req, res) {
+    try {
+      const { poll_id } = req.params;
+      const user_id = req.body.user_id;
+      const poll = await postService.updateLikes(poll_id, user_id);
+      res.status(200).json({
+        success: true,
+        message: "Post likes updated",
+        response: poll,
+      });
+    } catch (error) {
+      res.status(500).json({ success: false, message: error });
+    }
+  }
 }
 
 export default PostController;

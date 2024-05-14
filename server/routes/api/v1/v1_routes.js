@@ -10,6 +10,7 @@ import jobRoutes from "./job/job_routes.js";
 import eventRoutes from "./event/event_routes.js";
 import postRoutes from "./post/post_routes.js";
 import pollRoutes from "./post/poll_routes.js";
+import commentRoutes from "./post/comment_routes.js";
 
 const v1Routes = express.Router();
 
@@ -24,5 +25,6 @@ v1Routes.use("/job", jobRoutes);
 v1Routes.use("/event", eventRoutes);
 v1Routes.use("/poll", pollRoutes);
 v1Routes.use("/post", postRoutes);
+v1Routes.use("/comment", commentRoutes);
 
 export default v1Routes;

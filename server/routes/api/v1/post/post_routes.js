@@ -1,6 +1,6 @@
 import express from "express";
-import upload from "../../../../middleware/upload/upload_images.js";
 import PostController from "../../../../controllers/api/v1/post/post_controller.js";
+import uploadImages from "../../../../middleware/upload/upload_images.js";
 let postRoutes = express.Router();
 
 let postController = new PostController();
@@ -16,11 +16,13 @@ const routes = {
   fetch_likes: "/likes/:post_id",
   fetch_comments: "/comments/:post_id",
   fetch_public_post: "/public/:user_id",
+  update_likes : "/likes/update/:poll_id",
 };
 
+const uploadPostImages = uploadImages("images", "images");
 postRoutes.post(
   routes.create_post,
-  upload.array("images"),
+  uploadPostImages,
   postController.createPost
 );
 postRoutes.get(routes.all_posts, postController.getAllPosts);
@@ -32,5 +34,7 @@ postRoutes.get(routes.filter_post, postController.filterPost);
 postRoutes.get(routes.fetch_likes, postController.fetchLikes);
 postRoutes.get(routes.fetch_comments, postController.fetchComments);
 postRoutes.get(routes.fetch_public_post, postController.fetchPublicPost);
+postRoutes.patch(routes.update_likes, postController.updateLikes);
+
 
 export default postRoutes;

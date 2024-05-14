@@ -33,6 +33,39 @@ class PollService {
       console.log(`Error while editing poll with id : ${error}`);
     }
   }
+
+  async updateLikes(poll_id, user_id) {
+    try {
+      const response = await pollModel.findById(poll_id).select("likes");
+      const likes = response.likes;
+      let newLikes = [];
+      if (likes.includes(user_id)) {
+        newLikes = await pollModel
+          .findByIdAndUpdate(
+            poll_id,
+            {
+              $pull: { likes: user_id },
+            },
+            { new: true }
+          )
+          .select("likes");
+      } else {
+        newLikes = await pollModel
+          .findByIdAndUpdate(
+            poll_id,
+            {
+              $addToSet: { likes: user_id },
+            },
+            { new: true }
+          )
+          .select("likes");
+      }
+      return newLikes;
+    } catch (error) {
+      console.log(`Error while updating poll likes : ${error}`);
+    }
+  }
+
   async deletePollById(id) {
     try {
       const poll = await pollModel.findByIdAndDelete(id);
@@ -66,7 +99,10 @@ class PollService {
 
   async fetchLikes(poll_id) {
     try {
-      return await pollModel.findById(poll_id).select("likes").populate("likes");
+      return await pollModel
+        .findById(poll_id)
+        .select("likes")
+        .populate("likes");
     } catch (error) {
       console.log(`Error while fetching likes of a poll : ${error}`);
     }
@@ -74,7 +110,10 @@ class PollService {
 
   async fetchComments(poll_id) {
     try {
-      return await pollModel.findById(poll_id).select("comments").populate("comments");
+      return await pollModel
+        .findById(poll_id)
+        .select("comments")
+        .populate("comments");
     } catch (error) {
       console.log(`Error while fetching comments of a poll : ${error}`);
     }

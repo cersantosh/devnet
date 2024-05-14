@@ -32,6 +32,38 @@ class PostService {
     }
   }
 
+  async updateLikes(poll_id, user_id) {
+    try {
+      const response = await postModel.findById(poll_id).select("likes");
+      const likes = response.likes;
+      let newLikes = [];
+      if (likes.includes(user_id)) {
+        newLikes = await postModel
+          .findByIdAndUpdate(
+            poll_id,
+            {
+              $pull: { likes: user_id },
+            },
+            { new: true }
+          )
+          .select("likes");
+      } else {
+        newLikes = await postModel
+          .findByIdAndUpdate(
+            poll_id,
+            {
+              $addToSet: { likes: user_id },
+            },
+            { new: true }
+          )
+          .select("likes");
+      }
+      return newLikes;
+    } catch (error) {
+      console.log(`Error while updating post likes : ${error}`);
+    }
+  }
+
   async fetchPostById(id) {
     try {
       return await postModel.findById(id).populate("user_info");

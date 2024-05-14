@@ -21,6 +21,11 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    type: {
+      type: String,
+      enum: ["individual", "company"],
+      required: true,
+    },
     user_profile_info: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "user_profiles",
@@ -29,6 +34,12 @@ const userSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "company_profiles",
     },
+    groups: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "groups",
+      },
+    ],
   },
   {
     timestamps: true,

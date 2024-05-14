@@ -14,6 +14,7 @@ const routes = {
   filter_poll: "/filter",
   fetch_likes : "/likes/:poll_id",
   fetch_comments : "/comments/:poll_id",
+  update_likes : "/likes/update/:poll_id",
 };
 
 pollRoutes.post(routes.create_poll, pollController.createPoll);
@@ -25,6 +26,9 @@ pollRoutes.get(routes.search_poll, pollController.searchPoll);
 pollRoutes.get(routes.filter_poll, pollController.filterPoll);
 pollRoutes.get(routes.fetch_likes, pollController.fetchLikes);
 pollRoutes.get(routes.fetch_comments, pollController.fetchComments);
+pollRoutes.patch(routes.update_likes, pollController.updateLikes);
+
+
 
 
 export default pollRoutes;

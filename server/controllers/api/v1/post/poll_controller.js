@@ -57,6 +57,21 @@ class PollController {
     }
   }
 
+  async updateLikes(req, res) {
+    try {
+      const { poll_id } = req.params;
+      const user_id = req.body.user_id;
+      const poll = await pollService.updateLikes(poll_id, user_id);
+      res.status(200).json({
+        success: true,
+        message: "Poll likes updated",
+        response: poll,
+      });
+    } catch (error) {
+      res.status(500).json({ success: false, message: error });
+    }
+  }
+
   async deletePollById(req, res) {
     try {
       const { id } = req.params;
