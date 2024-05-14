@@ -1,16 +1,21 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Sidebar from "../settings/sidebar";
+import AllMessages from "../../pages/messages/message_list";
 
 const NavBar = () => {
   const [showPostOptions, setShowPostOptions] = useState(false);
   const [showUserSettings, setShowUserSettings] = useState(false);
+  const [showMessages, setShowMessages] = useState(false);
 
   const handlePostOptionsToggle = () => {
     setShowPostOptions(!showPostOptions);
   };
   const handleUserSettings = () => {
     setShowUserSettings(!showUserSettings);
+  };
+  const handleMessages = () => {
+    setShowMessages(!showMessages);
   };
 
   return (
@@ -38,7 +43,9 @@ const NavBar = () => {
             onClick={handleUserSettings}
           ></i>
           <i className="fa-solid fa-bell text-white"></i>
-          <i className="fa-solid fa-message text-white"></i>
+          <Link to="/message_list">
+            <i className="fa-solid fa-message text-white"></i>
+          </Link>
         </div>
       </div>
       {showPostOptions && <PostOptions />}

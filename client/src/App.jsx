@@ -23,6 +23,7 @@ import JobsSettings from "./pages/job/jobs_settings.jsx";
 import EventsSettings from "./pages/events/events_settings.jsx";
 import AccountSettings from "./pages/settings/account_settings.jsx";
 import QuestionsSettings from "./pages/discussion/questions_settings.jsx";
+import AllMessages from "./pages/messages/message_list.jsx";
 
 const router = createBrowserRouter([
   {
@@ -125,6 +126,10 @@ const router = createBrowserRouter([
   {
     path: "own_profile",
     element: <OwnProfilePage />,
+  },
+  {
+    path: "message_list",
+    element: <AllMessages />,
   },
 ]);
 
