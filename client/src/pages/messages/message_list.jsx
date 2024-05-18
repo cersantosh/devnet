@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import MessageEllipsis from "../../components/messages/message_ellipsis";
 
 const AllMessages = () => {
