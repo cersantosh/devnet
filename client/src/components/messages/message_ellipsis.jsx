@@ -5,7 +5,7 @@ const MessageEllipsis = ({ options }) => {
   const ellipsisRef = useRef(null);
 
   const openEllipsis = () => {
-    setIsEllipsisOpen(true);
+    setIsEllipsisOpen(!isEllipsisOpen);
   };
 
   const closeEllipsis = () => {
@@ -27,6 +27,7 @@ const MessageEllipsis = ({ options }) => {
     <div
       className="relative flex m-2 h-8 w-8 items-center justify-center hover:bg-white transition-all rounded-full duration-400"
       onClick={openEllipsis}
+      ref={ellipsisRef}
     >
       <i className="fa-solid fa-ellipsis"></i>
       <ul className="absolute top-10 right-0 w-32 shadow-md rounded-md bg-gray-400 z-10">
@@ -35,7 +36,6 @@ const MessageEllipsis = ({ options }) => {
             return (
               <li
                 key={index}
-                ref={ellipsisRef}
                 className="hover:bg-white"
                 onClick={option.action}
               >
