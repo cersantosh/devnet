@@ -77,6 +77,27 @@ const AllMessages = () => {
     },
   ];
 
+  const options = [
+    {
+      choice: "Action 1",
+      action() {
+        console.log("Action 1 triggered.");
+      },
+    },
+    {
+      choice: "Action 2",
+      action() {
+        console.log("Action 2 triggered.");
+      },
+    },
+    {
+      choice: "Action 3",
+      action() {
+        console.log("Action 3 triggered.");
+      },
+    },
+  ];
+
   return (
     <>
       <div className="p-2 border-solid border-gray-500">
@@ -97,7 +118,7 @@ const AllMessages = () => {
                 <p className="text-sm font-medium">{message.name}</p>
                 <p className="text-sm text-gray-500">{message.content}</p>
               </div>
-                <MessageEllipsis />
+              <MessageEllipsis options={options} />
             </li>
           ))}
         </ul>
