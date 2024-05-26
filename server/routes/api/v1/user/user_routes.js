@@ -5,16 +5,16 @@ let userRoutes = express.Router();
 let userController = new UserController();
 
 const routes = {
-  add_user: "/add_user",
-  all_users: "/all_users",
-  read_user: "/read_user/:id",
-  edit_user: "/edit_user/:id",
-  delete_user: "/delete_user/:id",
-  search_user: "/search_user",
-  filter_user: "/filter_user",
+  create_user: "/create",
+  all_users: "/all",
+  read_user: "/fetch/:id",
+  edit_user: "/edit/:id",
+  delete_user: "/delete/:id",
+  search_user: "/search",
+  filter_user: "/filter",
 };
 
-userRoutes.post(routes.add_user, userController.addUser);
+userRoutes.post(routes.create_user, userController.addUser);
 userRoutes.get(routes.all_users, userController.getAllUsers);
 userRoutes.get(routes.read_user, userController.readUserById);
 userRoutes.patch(routes.edit_user, userController.editUserById);

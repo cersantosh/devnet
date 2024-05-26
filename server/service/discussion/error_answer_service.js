@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import answerModel from "../../models/discussion/answer_model.js";
 import errorQuestionModel from "../../models/discussion/errror_question_model.js";
+import userModel from "../../models/user/user_model.js";
 
 class ErrorAnswerService {
   async addAnswer(data) {
@@ -13,6 +14,9 @@ class ErrorAnswerService {
         data.error_question_info,
         updateData
       );
+      await userModel.findByIdAndUpdate(data.user_info, {
+        $push: { error_answers: answer._id },
+      });
 
       return answer;
     } catch (error) {
@@ -55,7 +59,14 @@ class ErrorAnswerService {
   }
   async deleteAnswerById(id) {
     try {
-      return await answerModel.findByIdAndDelete(id);
+      const answer = await answerModel.findByIdAndDelete(id);
+      await errorQuestionModel.findByIdAndUpdate(answer.error_question_info, {
+        $pull: { "question_analytics.answers": answer._id },
+      });
+      await userModel.findByIdAndUpdate(data.user_info, {
+        $pull: { error_answers: answer._id },
+      });
+      return answer;
     } catch (error) {
       console.log(`Error while deleting answer with id : ${error}`);
     }

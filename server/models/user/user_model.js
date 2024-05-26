@@ -26,6 +26,38 @@ const userSchema = new mongoose.Schema(
       enum: ["individual", "company"],
       required: true,
     },
+    general_answers: {
+      type: [
+        {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "answers",
+        },
+      ],
+    },
+    error_answers: {
+      type: [
+        {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "answers",
+        },
+      ],
+    },
+    general_questions: {
+      type: [
+        {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "general_questions",
+        },
+      ],
+    },
+    error_questions: {
+      type: [
+        {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "error_questions",
+        },
+      ],
+    },
     user_profile_info: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "user_profiles",
@@ -38,6 +70,30 @@ const userSchema = new mongoose.Schema(
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: "groups",
+      },
+    ],
+    posted_jobs: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "jobs",
+      },
+    ],
+    events: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "jobs",
+      },
+    ],
+    polls: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "polls",
+      },
+    ],
+    posts: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "posts",
       },
     ],
   },

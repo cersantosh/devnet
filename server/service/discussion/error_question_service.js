@@ -1,9 +1,14 @@
 import mongoose from "mongoose";
 import errorQuestionModel from "../../models/discussion/errror_question_model.js";
+import userModel from "../../models/user/user_model.js";
 class ErrorQuestionService {
   async addQuestion(data) {
     try {
-      return await errorQuestionModel.create(data);
+      const question = await errorQuestionModel.create(data);
+      await userModel.findByIdAndUpdate(data.user_info, {
+        $push: { error_questions: question._id },
+      });
+      return question;
     } catch (error) {
       console.log(`Error while adding question : ${error.message}`);
     }
@@ -68,7 +73,11 @@ class ErrorQuestionService {
   }
   async deleteQuestionById(id) {
     try {
-      return await errorQuestionModel.findByIdAndDelete(id);
+      const question = await errorQuestionModel.findByIdAndDelete(id);
+      await userModel.findByIdAndUpdate(question.user_info, {
+        $pull: { error_questions: question._id },
+      });
+      return question;
     } catch (error) {
       console.log(`Error while deleting question with id : ${error}`);
     }

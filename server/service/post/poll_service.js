@@ -1,9 +1,13 @@
 import mongoose from "mongoose";
 import pollModel from "../../models/post/poll_model.js";
+import userModel from "../../models/user/user_model.js";
 class PollService {
   async createPoll(data) {
     try {
       const poll = await pollModel.create(data);
+      await userModel.findByIdAndUpdate(data.user_info, {
+        $push: { polls: poll._id },
+      });
       return poll;
     } catch (error) {
       console.log(`Error while creating poll : ${error.message}`);
@@ -69,6 +73,9 @@ class PollService {
   async deletePollById(id) {
     try {
       const poll = await pollModel.findByIdAndDelete(id);
+      await userModel.findByIdAndUpdate(poll.user_info, {
+        $pull: { polls: poll._id },
+      });
       return poll;
     } catch (error) {
       console.log(`Error while deleting poll with id : ${error}`);

@@ -1,9 +1,13 @@
 import mongoose from "mongoose";
 import postModel from "../../models/post/post_model.js";
+import userModel from "../../models/user/user_model.js";
 class PostService {
   async createPost(data) {
     try {
       const post = await postModel.create(data);
+      await userModel.findByIdAndUpdate(data.user_info, {
+        $push: { posts: poll._id },
+      });
       return post;
     } catch (error) {
       console.log(`Error while creating post : ${error.message}`);
@@ -81,6 +85,9 @@ class PostService {
   async deletePostById(id) {
     try {
       const post = await postModel.findByIdAndDelete(id);
+      await userModel.findByIdAndUpdate(post.user_info, {
+        $pull: { posts: poll._id },
+      });
       return post;
     } catch (error) {
       console.log(`Error while deleting post with id : ${error}`);

@@ -3,30 +3,42 @@ import ErrorQuestionController from "../../../../controllers/api/v1/discussion/e
 let errorQuestionRoutes = express.Router();
 
 let errorQuestionController = new ErrorQuestionController();
+const routes = {
+  create_question: "/create",
+  all_questions: "/all",
+  fetch_question: "/fetch/:id",
+  edit_question: "/edit/:id",
+  delete_question: "/delete/:id",
+  search_question: "/search",
+  filter_question: "/filter",
+};
 
-errorQuestionRoutes.post("/add_question", errorQuestionController.addQuestion);
+errorQuestionRoutes.post(
+  routes.create_question,
+  errorQuestionController.addQuestion
+);
 errorQuestionRoutes.get(
-  "/all_questions",
+  routes.all_questions,
   errorQuestionController.getAllQuestions
 );
 errorQuestionRoutes.get(
-  "/fetch_question/:id",
+  routes.fetch_question,
   errorQuestionController.fetchQuestionById
 );
 errorQuestionRoutes.patch(
-  "/edit_question/:id",
+  routes.edit_question,
   errorQuestionController.editQuestionById
 );
 errorQuestionRoutes.delete(
-  "/delete_question/:id",
+  routes.delete_question,
   errorQuestionController.deleteQuestionById
 );
 errorQuestionRoutes.get(
-  "/search_question",
+  routes.search_question,
   errorQuestionController.searchQuestion
 );
 errorQuestionRoutes.get(
-  "/filter_question",
+  routes.filter_question,
   errorQuestionController.filterQuestion
 );
 

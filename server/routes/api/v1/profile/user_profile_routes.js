@@ -1,6 +1,6 @@
 import express from "express";
 import UserProfileController from "../../../../controllers/api/v1/profile/user_profile_controller.js";
-let profileRoutes = express.Router();
+let userProfileRoutes = express.Router();
 
 let userProfileController = new UserProfileController();
 
@@ -14,15 +14,15 @@ const routes = {
   filter_profile: "/filter",
 };
 
-profileRoutes.post(routes.create_profile, userProfileController.createProfile);
-profileRoutes.get(routes.all_profiles, userProfileController.getAllProfiles);
-profileRoutes.get(routes.fetch_profile, userProfileController.fetchProfileById);
-profileRoutes.patch(routes.edit_profile, userProfileController.editProfileById);
-profileRoutes.delete(
+userProfileRoutes.post(routes.create_profile, userProfileController.createProfile);
+userProfileRoutes.get(routes.all_profiles, userProfileController.getAllProfiles);
+userProfileRoutes.get(routes.fetch_profile, userProfileController.fetchProfileById);
+userProfileRoutes.patch(routes.edit_profile, userProfileController.editProfileById);
+userProfileRoutes.delete(
   routes.delete_profile,
   userProfileController.deleteProfileById
 );
-profileRoutes.get(routes.search_profile, userProfileController.searchProfile);
-profileRoutes.get(routes.filter_profile, userProfileController.filterProfile);
+userProfileRoutes.get(routes.search_profile, userProfileController.searchProfile);
+userProfileRoutes.get(routes.filter_profile, userProfileController.filterProfile);
 
-export default profileRoutes;
+export default userProfileRoutes;

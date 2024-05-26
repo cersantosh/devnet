@@ -17,12 +17,24 @@ const routes = {
 };
 
 commentRoutes.post(routes.create_comment, commentController.createComment);
-commentRoutes.get(routes.all_comments_post, commentController.getAllCommentsOfPost);
-commentRoutes.get(routes.all_comments_poll, commentController.getAllCommentsOfPoll);
+commentRoutes.get(
+  routes.all_comments_post,
+  commentController.getAllCommentsOfPost
+);
+commentRoutes.get(
+  routes.all_comments_poll,
+  commentController.getAllCommentsOfPoll
+);
 commentRoutes.get(routes.fetch_comment, commentController.fetchCommentById);
 commentRoutes.patch(routes.edit_comment, commentController.editCommentById);
-commentRoutes.delete(routes.delete_post_comment, commentController.deletePostComment);
-commentRoutes.delete(routes.delete_poll_comment, commentController.deletePollComment);
+commentRoutes.delete(
+  routes.delete_post_comment,
+  commentController.deletePostComment
+);
+commentRoutes.delete(
+  routes.delete_poll_comment,
+  commentController.deletePollComment
+);
 commentRoutes.get(routes.search_comment, commentController.searchComment);
 commentRoutes.get(routes.filter_comment, commentController.filterComment);
 

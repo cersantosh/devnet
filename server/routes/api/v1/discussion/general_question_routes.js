@@ -3,13 +3,43 @@ import GeneralQuestionController from "../../../../controllers/api/v1/discussion
 let generalQuestionRoutes = express.Router();
 
 let generalQuestionController = new GeneralQuestionController();
+const routes = {
+  create_question: "/create",
+  all_questions: "/all",
+  fetch_question: "/fetch/:id",
+  edit_question: "/edit/:id",
+  delete_question: "/delete/:id",
+  search_question: "/search",
+  filter_question: "/filter",
+};
 
-generalQuestionRoutes.post("/add_question", generalQuestionController.addQuestion);
-generalQuestionRoutes.get("/all_questions", generalQuestionController.getAllQuestions);
-generalQuestionRoutes.get("/fetch_question/:id", generalQuestionController.fetchQuestionById);
-generalQuestionRoutes.patch("/edit_question/:id", generalQuestionController.editQuestionById);
-generalQuestionRoutes.delete("/delete_question/:id", generalQuestionController.deleteQuestionById);
-generalQuestionRoutes.get("/search_question", generalQuestionController.searchQuestion);
-generalQuestionRoutes.get("/filter_question", generalQuestionController.filterQuestion);
+generalQuestionRoutes.post(
+  routes.create_question,
+  generalQuestionController.addQuestion
+);
+generalQuestionRoutes.get(
+  routes.all_questions,
+  generalQuestionController.getAllQuestions
+);
+generalQuestionRoutes.get(
+  routes.fetch_question,
+  generalQuestionController.fetchQuestionById
+);
+generalQuestionRoutes.patch(
+  routes.edit_question,
+  generalQuestionController.editQuestionById
+);
+generalQuestionRoutes.delete(
+  routes.delete_question,
+  generalQuestionController.deleteQuestionById
+);
+generalQuestionRoutes.get(
+  routes.search_question,
+  generalQuestionController.searchQuestion
+);
+generalQuestionRoutes.get(
+  routes.filter_question,
+  generalQuestionController.filterQuestion
+);
 
 export default generalQuestionRoutes;

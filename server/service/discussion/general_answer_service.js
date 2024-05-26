@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import answerModel from "../../models/discussion/answer_model.js";
 import generalQuestionModel from "../../models/discussion/general_question_model.js";
+import userModel from "../../models/user/user_model.js";
 class GeneralAnswerService {
   async addAnswer(data) {
     try {
@@ -12,6 +13,9 @@ class GeneralAnswerService {
         data.general_question_info,
         updateData
       );
+      await userModel.findByIdAndUpdate(data.user_info, {
+        $push: { general_answers: answer._id },
+      });
 
       return answer;
     } catch (error) {
@@ -54,7 +58,17 @@ class GeneralAnswerService {
   }
   async deleteAnswerById(id) {
     try {
-      return await answerModel.findByIdAndDelete(id);
+      const answer = await answerModel.findByIdAndDelete(id);
+      await generalQuestionModel.findByIdAndUpdate(
+        answer.general_question_info,
+        {
+          $pull: { "question_analytics.answers": answer._id },
+        }
+      );
+      await userModel.findByIdAndUpdate(data.user_info, {
+        $pull: { general_answers: answer._id },
+      });
+      return answer;
     } catch (error) {
       console.log(`Error while deleting answer with id : ${error}`);
     }

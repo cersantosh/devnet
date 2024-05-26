@@ -1,8 +1,12 @@
 import eventModel from "../../models/event/event_model.js";
+import userModel from "../../models/user/user_model.js";
 class EventService {
   async createEvent(data) {
     try {
       const event = await eventModel.create(data);
+      await userModel.findByIdAndUpdate(data.user_info, {
+        $push: { events: event._id },
+      });
       return event;
     } catch (error) {
       console.log(`Error while creating event : ${error.message}`);
@@ -33,6 +37,9 @@ class EventService {
   async deleteEventById(id) {
     try {
       const event = await eventModel.findByIdAndDelete(id);
+      await userModel.findByIdAndUpdate(event.user_info, {
+        $pull: { events: event._id },
+      });
       return event;
     } catch (error) {
       console.log(`Error while deleting event with id : ${error}`);

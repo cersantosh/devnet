@@ -4,13 +4,13 @@ let generalAnswerRoutes = express.Router();
 
 let generalAnswerController = new GeneralAnswerController();
 const routes = {
-  add_answer: "/add_answer",
-  all_answers: "/all_answers/:question_id",
-  fetch_answer: "/fetch_answer/:id",
-  edit_answer: "/edit_answer/:id",
-  delete_answer: "/delete_answer/:id",
-  search_answer: "/search_answer",
-  filter_answer: "/filter_answer",
+  add_answer: "/create",
+  all_answers: "/all/:question_id",
+  fetch_answer: "/fetch/:id",
+  edit_answer: "/edit/:id",
+  delete_answer: "/delete/:id",
+  search_answer: "/search",
+  filter_answer: "/filter",
 };
 
 generalAnswerRoutes.post(routes.add_answer, generalAnswerController.addAnswer);

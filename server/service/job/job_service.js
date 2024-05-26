@@ -1,8 +1,12 @@
 import jobModel from "../../models/job/job_model.js";
+import userModel from "../../models/user/user_model.js";
 class JobService {
   async createJob(data) {
     try {
       const job = await jobModel.create(data);
+      await userModel.findByIdAndUpdate(data.user_info, {
+        $push: { posted_jobs: job._id },
+      });
       return job;
     } catch (error) {
       console.log(`Error while creating job : ${error.message}`);
@@ -33,6 +37,9 @@ class JobService {
   async deleteJobById(id) {
     try {
       const job = await jobModel.findByIdAndDelete(id);
+      await userModel.findByIdAndUpdate(data.user_info, {
+        $pull: { posted_jobs: job._id },
+      });
       return job;
     } catch (error) {
       console.log(`Error while deleting job with id : ${error}`);
