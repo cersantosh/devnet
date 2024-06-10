@@ -1,3 +1,4 @@
+import userModel from "../../../../models/user/user_model.js";
 import UserProfileService from "../../../../service/profile/user_profile_service.js";
 const userProfileService = new UserProfileService();
 class UserProfileController {
@@ -21,6 +22,7 @@ class UserProfileController {
   }
 
   async getAllProfiles(req, res) {
+    console.log()
     try {
       const allProfiles = await userProfileService.getAllProfiles();
       res.status(200).json({

@@ -14,6 +14,7 @@ import groupRoutes from "./group/group_routes.js";
 import replyRoutes from "./post/reply_routes.js";
 import userProfileRoutes from "./profile/user_profile_routes.js";
 import companyProfileRoutes from "./profile/company_profile_routes.js";
+import messageRoutes from "./message/message_routes.js";
 
 const v1Routes = express.Router();
 
@@ -32,5 +33,6 @@ v1Routes.use("/post", postRoutes);
 v1Routes.use("/comment", commentRoutes);
 v1Routes.use("/reply", replyRoutes);
 v1Routes.use("/group", groupRoutes);
+v1Routes.use("/message", messageRoutes);
 
 export default v1Routes;
