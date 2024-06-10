@@ -4,6 +4,7 @@ import AuthController from "../../../../controllers/api/v1/auth/auth_controller.
 const authController = new AuthController();
 
 authRoutes.post("/login", authController.login);
-authRoutes.post("/signup", authController.signup);
+authRoutes.post("/logout", authController.logout);
+
 
 export default authRoutes;

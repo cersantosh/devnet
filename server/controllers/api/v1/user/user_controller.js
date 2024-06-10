@@ -1,5 +1,5 @@
 import UserService from "../../../../service/user/user_service.js";
-import hashPassword from "../../../../utills/hash_password.js";
+import hashPassword from "../../../../utills/password/hash_password.js";
 const userService = new UserService();
 class UserController {
   async addUser(req, res) {

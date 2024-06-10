@@ -1,5 +1,6 @@
 import express from "express";
 import UserController from "../../../../controllers/api/v1/user/user_controller.js";
+import authMiddleware from "../../../../middleware/auth/auth_middleware.js";
 let userRoutes = express.Router();
 
 let userController = new UserController();
@@ -15,11 +16,15 @@ const routes = {
 };
 
 userRoutes.post(routes.create_user, userController.addUser);
-userRoutes.get(routes.all_users, userController.getAllUsers);
-userRoutes.get(routes.read_user, userController.readUserById);
-userRoutes.patch(routes.edit_user, userController.editUserById);
-userRoutes.delete(routes.delete_user, userController.deleteUserById);
-userRoutes.get(routes.search_user, userController.searchUser);
-userRoutes.get(routes.filter_user, userController.filterUser);
+userRoutes.get(routes.all_users, authMiddleware, userController.getAllUsers);
+userRoutes.get(routes.read_user, authMiddleware, userController.readUserById);
+userRoutes.patch(routes.edit_user, authMiddleware, userController.editUserById);
+userRoutes.delete(
+  routes.delete_user,
+  authMiddleware,
+  userController.deleteUserById
+);
+userRoutes.get(routes.search_user, authMiddleware, userController.searchUser);
+userRoutes.get(routes.filter_user, authMiddleware, userController.filterUser);
 
 export default userRoutes;
