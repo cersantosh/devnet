@@ -16,6 +16,7 @@ import userProfileRoutes from "./profile/user_profile_routes.js";
 import companyProfileRoutes from "./profile/company_profile_routes.js";
 import messageRoutes from "./message/message_routes.js";
 import authMiddleware from "../../../middleware/auth/auth_middleware.js";
+import roleRoutes from "./role/role_routes.js";
 const v1Routes = express.Router();
 
 v1Routes.use("/auth", authRoutes);
@@ -34,5 +35,6 @@ v1Routes.use("/comment", authMiddleware, commentRoutes);
 v1Routes.use("/reply", authMiddleware, replyRoutes);
 v1Routes.use("/group", authMiddleware, groupRoutes);
 v1Routes.use("/message", authMiddleware, messageRoutes);
+v1Routes.use("/role", authMiddleware, roleRoutes);
 
 export default v1Routes;
