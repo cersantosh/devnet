@@ -2,15 +2,15 @@ import mongoose from "mongoose";
 import pollModel from "../../models/post/poll_model.js";
 import userModel from "../../models/user/user_model.js";
 class PollService {
-  async createPoll(data) {
+  async createPoll(data, userId) {
     try {
       const poll = await pollModel.create(data);
-      await userModel.findByIdAndUpdate(data.user_info, {
+      await userModel.findByIdAndUpdate(userId, {
         $push: { polls: poll._id },
       });
       return poll;
     } catch (error) {
-      console.log(`Error while creating poll : ${error.message}`);
+      return(`Error while creating poll : ${error.message}`);
     }
   }
 
@@ -20,21 +20,21 @@ class PollService {
         .find({ user_info: new mongoose.Types.ObjectId(user_id) })
         .populate("user_info");
     } catch (error) {
-      console.log(`Error while fetching all polls : ${error.message}`);
+      return(`Error while fetching all polls : ${error.message}`);
     }
   }
   async fetchPollById(id) {
     try {
       return await pollModel.findById(id).populate("user_info");
     } catch (error) {
-      console.log(`Error while fetching poll by id : ${error.message}`);
+      return(`Error while fetching poll by id : ${error.message}`);
     }
   }
   async editPollById(id, data) {
     try {
       return await pollModel.findByIdAndUpdate(id, data, { new: true });
     } catch (error) {
-      console.log(`Error while editing poll with id : ${error}`);
+      return(`Error while editing poll with id : ${error}`);
     }
   }
 
@@ -66,7 +66,7 @@ class PollService {
       }
       return newLikes;
     } catch (error) {
-      console.log(`Error while updating poll likes : ${error}`);
+      return(`Error while updating poll likes : ${error}`);
     }
   }
 
@@ -78,7 +78,7 @@ class PollService {
       });
       return poll;
     } catch (error) {
-      console.log(`Error while deleting poll with id : ${error}`);
+      return(`Error while deleting poll with id : ${error}`);
     }
   }
   async searchPoll(search_term) {
@@ -92,7 +92,7 @@ class PollService {
         })
         .populate("user_info");
     } catch (error) {
-      console.log(`Error while searching poll : ${error}`);
+      return(`Error while searching poll : ${error}`);
     }
   }
   async filterPoll(filterOptions) {
@@ -100,7 +100,7 @@ class PollService {
       const query = {};
       return await pollModel.find(query).populate("user_info");
     } catch (error) {
-      console.log(`Error while filtering polls : ${error}`);
+      return(`Error while filtering polls : ${error}`);
     }
   }
 
@@ -111,7 +111,7 @@ class PollService {
         .select("likes")
         .populate("likes");
     } catch (error) {
-      console.log(`Error while fetching likes of a poll : ${error}`);
+      return(`Error while fetching likes of a poll : ${error}`);
     }
   }
 
@@ -122,7 +122,7 @@ class PollService {
         .select("comments")
         .populate("comments");
     } catch (error) {
-      console.log(`Error while fetching comments of a poll : ${error}`);
+      return(`Error while fetching comments of a poll : ${error}`);
     }
   }
 }

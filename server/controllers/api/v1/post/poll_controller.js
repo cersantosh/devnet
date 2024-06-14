@@ -4,7 +4,8 @@ const pollService = new PollService();
 class PollController {
   async createPoll(req, res) {
     try {
-      const poll = await pollService.createPoll(req.body);
+      const userId  = req.user._id;
+      const poll = await pollService.createPoll({user_info : userId, ...req.body}, userId);
       res.status(200).json({
         success: true,
         message: "Poll created successfully",

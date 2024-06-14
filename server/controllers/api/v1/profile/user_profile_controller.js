@@ -1,20 +1,23 @@
-import userModel from "../../../../models/user/user_model.js";
 import UserProfileService from "../../../../service/profile/user_profile_service.js";
 const userProfileService = new UserProfileService();
 class UserProfileController {
   async createProfile(req, res) {
     try {
-      const profile = await userProfileService.createProfile(req.body);
+      const userId = req.user._id;
+      const profile = await userProfileService.createProfile(
+        { user_info: userId, ...req.body },
+        userId
+      );
       if (profile) {
         return res.status(200).json({
           success: true,
-          message: "Profile created successfully",
+          message: "User profile created successfully",
           response: profile,
         });
       }
       return res.status(200).json({
         success: true,
-        message: "Profile already exists for this user",
+        message: "User profile already exists for this user",
       });
     } catch (error) {
       res.status(500).json({ success: false, message: error });
@@ -22,12 +25,14 @@ class UserProfileController {
   }
 
   async getAllProfiles(req, res) {
-    console.log()
+    console.log();
     try {
       const allProfiles = await userProfileService.getAllProfiles();
       res.status(200).json({
         success: true,
-        message: "All profiles fetched successfully",
+        message: "All user profiles fetched successfully",
+        total: allProfiles.length,
+
         response: allProfiles,
       });
     } catch (error) {
@@ -37,10 +42,17 @@ class UserProfileController {
   async fetchProfileById(req, res) {
     try {
       const { id } = req.params;
+      const profileExist = await userProfileService.checkProfileExistById(id);
+      if (!profileExist) {
+        return res.status(404).json({
+          success: false,
+          message: "User profile does not exist",
+        });
+      }
       const profile = await userProfileService.fetchProfileById(id);
       res.status(200).json({
         success: true,
-        message: "Profile fetched with id",
+        message: "User profile fetched with id",
         response: profile,
       });
     } catch (error) {
@@ -51,10 +63,17 @@ class UserProfileController {
     try {
       const { id } = req.params;
       const data = req.body;
+      const profileExist = await userProfileService.checkProfileExistById(id);
+      if (!profileExist) {
+        return res.status(404).json({
+          success: false,
+          message: "User profile does not exist",
+        });
+      }
       const profile = await userProfileService.editProfileById(id, data);
       res.status(200).json({
         success: true,
-        message: "Profile updated with id",
+        message: "User profile updated with id",
         response: profile,
       });
     } catch (error) {
@@ -65,10 +84,17 @@ class UserProfileController {
   async deleteProfileById(req, res) {
     try {
       const { id } = req.params;
+      const profileExist = await userProfileService.checkProfileExistById(id);
+      if (!profileExist) {
+        return res.status(404).json({
+          success: false,
+          message: "User profile does not exist",
+        });
+      }
       const profile = await userProfileService.deleteProfileById(id);
       res.status(200).json({
         success: true,
-        message: "Profile deleted with given id",
+        message: "User profile deleted with given id",
         response: profile,
       });
     } catch (error) {
@@ -81,7 +107,8 @@ class UserProfileController {
       const profile = await userProfileService.searchProfile(search_term);
       res.status(200).json({
         success: true,
-        message: "Profile searched with given search term",
+        message: "User profile searched with given search term",
+        total: profile.length,
         response: profile,
       });
     } catch (error) {

@@ -9,7 +9,8 @@ class PostController {
         images.push(file.filename);
       }
       req.body.images = images;
-      const post = await postService.createPost(req.body);
+      const userId = req.user._id;
+      const post = await postService.createPost({user_info : userId, ...req.body}, userId);
       res.status(200).json({
         success: true,
         message: "Post created successfully",

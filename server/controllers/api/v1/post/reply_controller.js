@@ -4,7 +4,8 @@ const replyService = new ReplyService();
 class ReplyController {
   async createReply(req, res) {
     try {
-      const reply = await replyService.createReply(req.body);
+      const userId= req.user._id;
+      const reply = await replyService.createReply({user_info : userId, ...req.body}, userId);
       res.status(200).json({
         success: true,
         message: "Reply created successfully",

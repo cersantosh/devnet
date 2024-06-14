@@ -2,17 +2,17 @@ import mongoose from "mongoose";
 import groupModel from "../../models/group/group_model.js";
 import userModel from "../../models/user/user_model.js";
 class GroupService {
-  async createGroup(data) {
+  async createGroup(data, userId) {
     try {
       const group = await groupModel.create(data);
-      await userModel.findByIdAndUpdate(data.user_info, {
+      await userModel.findByIdAndUpdate(userId, {
         groups: {
           $push: group._id,
         },
       });
       return group;
     } catch (error) {
-      console.log(`Error while creating group : ${error.message}`);
+      return `Error while creating group : ${error.message}`;
     }
   }
 
@@ -20,7 +20,7 @@ class GroupService {
     try {
       return await groupModel.find().populate("user_info");
     } catch (error) {
-      console.log(`Error while fetching all groups : ${error.message}`);
+      return `Error while fetching all groups : ${error.message}`;
     }
   }
 
@@ -28,14 +28,14 @@ class GroupService {
     try {
       return await groupModel.findById(id).populate("user_info");
     } catch (error) {
-      console.log(`Error while fetching group by id : ${error.message}`);
+      return `Error while fetching group by id : ${error.message}`;
     }
   }
   async editGroupById(id, data) {
     try {
       return await groupModel.findByIdAndUpdate(id, data, { new: true });
     } catch (error) {
-      console.log(`Error while editing group with id : ${error}`);
+      return `Error while editing group with id : ${error}`;
     }
   }
 
@@ -47,7 +47,7 @@ class GroupService {
       });
       return group;
     } catch (error) {
-      console.log(`Error while deleting group with id : ${error}`);
+      return `Error while deleting group with id : ${error}`;
     }
   }
 
@@ -64,7 +64,7 @@ class GroupService {
         })
         .populate("user_info");
     } catch (error) {
-      console.log(`Error while searching group : ${error}`);
+      return `Error while searching group : ${error}`;
     }
   }
   async filterGroup(filterOptions) {
@@ -72,7 +72,7 @@ class GroupService {
       let query = {};
       return await groupModel.find(query);
     } catch (error) {
-      console.log(`Error while filtering groups : ${error}`);
+      return `Error while filtering groups : ${error}`;
     }
   }
 }

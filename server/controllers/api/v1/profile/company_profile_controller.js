@@ -4,7 +4,11 @@ const companyProfileService = new CompanyProfileService();
 class CompanyProfileController {
   async createProfile(req, res) {
     try {
-      const profile = await companyProfileService.createProfile(req.body);
+      const userId = req.user._id;
+      const profile = await companyProfileService.createProfile(
+        { company_info: userId, ...req.body },
+        userId
+      );
       if (profile) {
         return res.status(200).json({
           success: true,
@@ -27,6 +31,7 @@ class CompanyProfileController {
       res.status(200).json({
         success: true,
         message: "All company profiles fetched successfully",
+        total: allProfiles.length,
         response: allProfiles,
       });
     } catch (error) {
@@ -81,6 +86,7 @@ class CompanyProfileController {
       res.status(200).json({
         success: true,
         message: "Company profile searched with given search term",
+        total: profile.length,
         response: profile,
       });
     } catch (error) {

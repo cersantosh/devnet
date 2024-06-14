@@ -1,37 +1,37 @@
 import eventModel from "../../models/event/event_model.js";
 import userModel from "../../models/user/user_model.js";
 class EventService {
-  async createEvent(data) {
+  async createEvent(data, userId) {
     try {
       const event = await eventModel.create(data);
-      await userModel.findByIdAndUpdate(data.user_info, {
+      await userModel.findByIdAndUpdate(userId, {
         $push: { events: event._id },
       });
       return event;
     } catch (error) {
-      console.log(`Error while creating event : ${error.message}`);
+      return(`Error while creating event : ${error.message}`);
     }
   }
 
   async getAllEvents() {
     try {
-      return await eventModel.find().populate("user_info company_info");
+      return await eventModel.find().populate("user_info");
     } catch (error) {
-      console.log(`Error while fetching all events : ${error.message}`);
+      return(`Error while fetching all events : ${error.message}`);
     }
   }
   async fetchEventById(id) {
     try {
-      return await eventModel.findById(id).populate("user_info company_info");
+      return await eventModel.findById(id).populate("user_info");
     } catch (error) {
-      console.log(`Error while fetching event by id : ${error.message}`);
+      return(`Error while fetching event by id : ${error.message}`);
     }
   }
   async editEventById(id, data) {
     try {
       return await eventModel.findByIdAndUpdate(id, data, { new: true });
     } catch (error) {
-      console.log(`Error while editing event with id : ${error}`);
+      return(`Error while editing event with id : ${error}`);
     }
   }
   async deleteEventById(id) {
@@ -42,7 +42,7 @@ class EventService {
       });
       return event;
     } catch (error) {
-      console.log(`Error while deleting event with id : ${error}`);
+      return(`Error while deleting event with id : ${error}`);
     }
   }
   async searchEvent(search_term) {
@@ -57,9 +57,9 @@ class EventService {
             { organizer_info: { $regex: search_term, $options: "i" } },
           ],
         })
-        .populate("user_info company_info");
+        .populate("user_info");
     } catch (error) {
-      console.log(`Error while searching event : ${error}`);
+      return(`Error while searching event : ${error}`);
     }
   }
   async filterEvent(filterOptions) {
@@ -75,9 +75,9 @@ class EventService {
         };
       }
 
-      return await eventModel.find(query).populate("user_info company_info");
+      return await eventModel.find(query).populate("user_info");
     } catch (error) {
-      console.log(`Error while filtering events : ${error}`);
+      return(`Error while filtering events : ${error}`);
     }
   }
 }

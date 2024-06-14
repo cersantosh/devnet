@@ -26,7 +26,7 @@ v1Routes.use("/error_question", authMiddleware, errorQuestionRoutes);
 v1Routes.use("/answer/general", authMiddleware, generalAnswerRoutes);
 v1Routes.use("/answer/error", authMiddleware, errorAnswerRoutes);
 v1Routes.use("/user_profile", authMiddleware, userProfileRoutes);
-v1Routes.use("company_profile", authMiddleware, companyProfileRoutes);
+v1Routes.use("/company_profile", authMiddleware, companyProfileRoutes);
 v1Routes.use("/job", authMiddleware, jobRoutes);
 v1Routes.use("/event", authMiddleware, eventRoutes);
 v1Routes.use("/poll", authMiddleware, pollRoutes);

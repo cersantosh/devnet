@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import replyModel from "../../models/post/reply_model.js";
 import commentModel from "../../models/post/comment_model.js";
 class ReplyService {
-  async createReply(data) {
+  async createReply(data, userId) {
     try {
       const reply = await replyModel.create(data);
       //   updating comment replies also
@@ -14,7 +14,7 @@ class ReplyService {
 
       return reply;
     } catch (error) {
-      console.log(`Error while creating reply : ${error.message}`);
+      return(`Error while creating reply : ${error.message}`);
     }
   }
 
@@ -30,7 +30,7 @@ class ReplyService {
           },
         });
     } catch (error) {
-      console.log(
+      return(
         `Error while fetching all replies of a comment : ${error.message}`
       );
     }
@@ -40,14 +40,14 @@ class ReplyService {
     try {
       return await replyModel.findById(id).populate("user_info");
     } catch (error) {
-      console.log(`Error while fetching reply by id : ${error.message}`);
+      return(`Error while fetching reply by id : ${error.message}`);
     }
   }
   async editReplyById(id, data) {
     try {
       return await replyModel.findByIdAndUpdate(id, data, { new: true });
     } catch (error) {
-      console.log(`Error while editing reply with id : ${error}`);
+      return(`Error while editing reply with id : ${error}`);
     }
   }
 
@@ -59,7 +59,7 @@ class ReplyService {
       });
       return reply;
     } catch (error) {
-      console.log(`Error while deleting reply with id : ${error}`);
+      return(`Error while deleting reply with id : ${error}`);
     }
   }
 
@@ -71,7 +71,7 @@ class ReplyService {
         })
         .populate("user_info");
     } catch (error) {
-      console.log(`Error while searching reply : ${error}`);
+      return(`Error while searching reply : ${error}`);
     }
   }
   async filterReply(filterOptions) {
@@ -86,7 +86,7 @@ class ReplyService {
       }
       return await replyModel.find(query).populate("user_info").sort(sort);
     } catch (error) {
-      console.log(`Error while filtering replies : ${error}`);
+      return(`Error while filtering replies : ${error}`);
     }
   }
 }

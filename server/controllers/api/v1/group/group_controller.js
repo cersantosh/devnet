@@ -4,7 +4,8 @@ const groupService = new GroupService();
 class GroupController {
   async createGroup(req, res) {
     try {
-      const group = await groupService.createGroup(req.body);
+      const userId = req.user._id;
+      const group = await groupService.createGroup({user_info : userId, ...req.body}, userId);
       res.status(200).json({
         success: true,
         message: "Group created successfully",

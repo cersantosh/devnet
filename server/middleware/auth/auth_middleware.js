@@ -1,6 +1,7 @@
+import userModel from "../../models/user/user_model.js";
 import verifyJWTToken from "../../utills/jwt/verify_token.js";
 
-const authMiddleware = (req, res, next) => {
+const authMiddleware = async (req, res, next) => {
   const token = req.cookies.token; // Get token from cookies
 
   if (!token) {

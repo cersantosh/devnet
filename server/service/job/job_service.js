@@ -1,48 +1,48 @@
 import jobModel from "../../models/job/job_model.js";
 import userModel from "../../models/user/user_model.js";
 class JobService {
-  async createJob(data) {
+  async createJob(data, userId) {
     try {
       const job = await jobModel.create(data);
-      await userModel.findByIdAndUpdate(data.user_info, {
+      await userModel.findByIdAndUpdate(userId, {
         $push: { posted_jobs: job._id },
       });
       return job;
     } catch (error) {
-      console.log(`Error while creating job : ${error.message}`);
+      return `Error while creating job : ${error.message}`;
     }
   }
 
   async getAllJobs() {
     try {
-      return await jobModel.find().populate("user_info company_info");
+      return await jobModel.find().populate("user_info");
     } catch (error) {
-      console.log(`Error while fetching all jobs : ${error.message}`);
+      return `Error while fetching all jobs : ${error.message}`;
     }
   }
   async fetchJobById(id) {
     try {
-      return await jobModel.findById(id).populate("user_info company_info");
+      return await jobModel.findById(id).populate("user_info");
     } catch (error) {
-      console.log(`Error while fetching job by id : ${error.message}`);
+      return `Error while fetching job by id : ${error.message}`;
     }
   }
   async editJobById(id, data) {
     try {
       return await jobModel.findByIdAndUpdate(id, data, { new: true });
     } catch (error) {
-      console.log(`Error while editing job with id : ${error}`);
+      return `Error while editing job with id : ${error}`;
     }
   }
   async deleteJobById(id) {
     try {
       const job = await jobModel.findByIdAndDelete(id);
-      await userModel.findByIdAndUpdate(data.user_info, {
+      await userModel.findByIdAndUpdate(job.user_info, {
         $pull: { posted_jobs: job._id },
       });
       return job;
     } catch (error) {
-      console.log(`Error while deleting job with id : ${error}`);
+      return `Error while deleting job with id : ${error}`;
     }
   }
   async searchJob(search_term) {
@@ -63,9 +63,9 @@ class JobService {
             { country: { $regex: search_term, $options: "i" } },
           ],
         })
-        .populate("user_info company_info");
+        .populate("user_info");
     } catch (error) {
-      console.log(`Error while searching job : ${error}`);
+      return `Error while searching job : ${error}`;
     }
   }
   async filterJob(filterOptions) {
@@ -108,9 +108,9 @@ class JobService {
       //   query.salary_range = filterOptions.salary_range;
       // }
 
-      return await jobModel.find(query).populate("user_info company_info");
+      return await jobModel.find(query).populate("user_info");
     } catch (error) {
-      console.log(`Error while filtering jobs : ${error}`);
+      return `Error while filtering jobs : ${error}`;
     }
   }
 }

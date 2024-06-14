@@ -3,7 +3,7 @@ import commentModel from "../../models/post/comment_model.js";
 import pollModel from "../../models/post/poll_model.js";
 import postModel from "../../models/post/post_model.js";
 class CommentService {
-  async createComment(data) {
+  async createComment(data, userId) {
     try {
       const comment = await commentModel.create(data);
       // updating post comments
@@ -19,7 +19,7 @@ class CommentService {
 
       return comment;
     } catch (error) {
-      console.log(`Error while creating comment : ${error.message}`);
+     return(`Error while creating comment : ${error.message}`);
     }
   }
 
@@ -35,7 +35,7 @@ class CommentService {
           },
         });
     } catch (error) {
-      console.log(
+     return(
         `Error while fetching all comments of a post : ${error.message}`
       );
     }
@@ -53,7 +53,7 @@ class CommentService {
           },
         });
     } catch (error) {
-      console.log(
+     return(
         `Error while fetching all comments of a poll : ${error.message}`
       );
     }
@@ -63,14 +63,14 @@ class CommentService {
     try {
       return await commentModel.findById(id).populate("user_info");
     } catch (error) {
-      console.log(`Error while fetching comment by id : ${error.message}`);
+     return(`Error while fetching comment by id : ${error.message}`);
     }
   }
   async editCommentById(id, data) {
     try {
       return await commentModel.findByIdAndUpdate(id, data, { new: true });
     } catch (error) {
-      console.log(`Error while editing comment with id : ${error}`);
+     return(`Error while editing comment with id : ${error}`);
     }
   }
 
@@ -82,7 +82,7 @@ class CommentService {
       });
       return comment;
     } catch (error) {
-      console.log(`Error while deleting comment with id : ${error}`);
+     return(`Error while deleting comment with id : ${error}`);
     }
   }
 
@@ -94,7 +94,7 @@ class CommentService {
       });
       return comment;
     } catch (error) {
-      console.log(`Error while deleting comment with id : ${error}`);
+     return(`Error while deleting comment with id : ${error}`);
     }
   }
 
@@ -106,7 +106,7 @@ class CommentService {
         })
         .populate("user_info");
     } catch (error) {
-      console.log(`Error while searching comment : ${error}`);
+     return(`Error while searching comment : ${error}`);
     }
   }
   async filterComment(filterOptions) {
@@ -121,7 +121,7 @@ class CommentService {
       }
       return await commentModel.find(query).populate("user_info").sort(sort);
     } catch (error) {
-      console.log(`Error while filtering comments : ${error}`);
+     return(`Error while filtering comments : ${error}`);
     }
   }
 }

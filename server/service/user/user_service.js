@@ -1,5 +1,11 @@
 import userModel from "../../models/user/user_model.js";
+import isOwnResource from "../../utills/auth/own_resource.js";
 class UserService {
+  async checkUserExistById(id) {
+    const response = await userModel.findById(id);
+    return response ? true : false;
+  }
+
   async checkUserExist(email) {
     const response = await userModel.find({
       email,
@@ -16,7 +22,7 @@ class UserService {
     try {
       return await userModel.create(data);
     } catch (error) {
-     return(`Error while adding user : ${error.message}`);
+      return `Error while adding user : ${error.message}`;
     }
   }
 
@@ -24,28 +30,28 @@ class UserService {
     try {
       return await userModel.find();
     } catch (error) {
-     return(`Error while fetching all users : ${error.message}`);
+      return `Error while fetching all users : ${error.message}`;
     }
   }
   async readUserById(id) {
     try {
       return await userModel.findById(id);
     } catch (error) {
-     return(`Error while reading user by id : ${error.message}`);
+      return `Error while reading user by id : ${error.message}`;
     }
   }
   async editUserById(id, data) {
     try {
       return await userModel.findByIdAndUpdate(id, data, { new: true });
     } catch (error) {
-     return(`Error while editing user with id : ${error}`);
+      return `Error while editing user with id : ${error}`;
     }
   }
   async deleteUserById(id) {
     try {
       return await userModel.findByIdAndDelete(id);
     } catch (error) {
-     return(`Error while deleting user with id : ${error}`);
+      return `Error while deleting user with id : ${error}`;
     }
   }
   async searchUser(search_term) {
@@ -57,7 +63,7 @@ class UserService {
         ],
       });
     } catch (error) {
-     return(`Error while searching user : ${error}`);
+      return `Error while searching user : ${error}`;
     }
   }
   filterUser() {}

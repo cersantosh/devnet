@@ -3,7 +3,8 @@ const eventService = new EventService();
 class EventController {
   async createEvent(req, res) {
     try {
-      const event = await eventService.createEvent(req.body);
+      const userId = req.user._id;
+      const event = await eventService.createEvent({user_info : userId, ...req.body}, userId);
       res.status(200).json({
         success: true,
         message: "Event created successfully",
