@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import isStrongPassword from "../../utils/check_password.jsx"
-import randomPasswordGenerator from "../../utils/random_password_generator.jsx"
+import isStrongPassword from "../../utils/check_password.jsx";
+import randomPasswordGenerator from "../../utils/random_password_generator.jsx";
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -109,7 +109,7 @@ const SignUp = () => {
         className="bg-[#f5f5f5] p-[20px] rounded-lg flex flex-col justify-center items-center w-[350px]"
         onSubmit={handleSubmit}
       >
-        <h2>Sign Up</h2>
+        <h2 className="font-bold">Sign Up</h2>
         <div className="w-full">
           <label htmlFor="email">E-mail</label>
           <div>

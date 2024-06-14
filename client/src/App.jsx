@@ -24,6 +24,7 @@ import EventsSettings from "./pages/events/events_settings.jsx";
 import AccountSettings from "./pages/settings/account_settings.jsx";
 import QuestionsSettings from "./pages/discussion/questions_settings.jsx";
 import AllMessages from "./pages/messages/message_list.jsx";
+import GroupsHome from "./pages/groups/groups_home.jsx";
 
 const router = createBrowserRouter([
   {
@@ -131,6 +132,7 @@ const router = createBrowserRouter([
     path: "message_list",
     element: <AllMessages />,
   },
+  { path: "/groups", element: <GroupsHome /> },
 ]);
 
 function App() {

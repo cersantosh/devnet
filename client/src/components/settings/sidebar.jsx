@@ -55,9 +55,12 @@ const Sidebar = () => {
           </li>
 
           <li className="mb-2">
-            <a href="#" className="block py-2 px-4 hover:bg-gray-700">
+            <Link
+              to="/groups"
+              className="block py-2 px-4 hover:bg-gray-700"
+            >
               Groups
-            </a>
+            </Link>
           </li>
 
           <li className="mb-2">
