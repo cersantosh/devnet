@@ -5,7 +5,10 @@ const GroupList = ({ items }) => {
     <div className="overflow-y-auto max-h-80">
       <ul className="p-2 divide-y divide-gray-200">
         {items.map((item, index) => (
-          <li key={index} className="py-2 flex justify-between">
+          <li
+            key={index}
+            className="py-2 flex justify-between rounded-md hover:bg-gray-200"
+          >
             <img src="" alt="Group's Photo" />
             <div>
               <div>{item}</div>
