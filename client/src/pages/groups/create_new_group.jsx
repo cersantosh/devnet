@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import ImageInput from "../../components/image_input";
+import { questionCategories } from "../../constants/discussion_constant";
 
 const CreateNewGroupModal = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
@@ -20,10 +21,21 @@ const CreateNewGroupModal = ({ isOpen, onClose }) => {
   const [groupName, setGroupName] = useState("");
   const [groupDescription, setGroupDescription] = useState("");
   const [groupPhoto, setGroupPhoto] = useState(null);
+  const tagRef = useRef(null);
 
   const handlePhotoChange = (e) => {
     const file = e.target.files[0];
     setGroupPhoto(file);
+  };
+
+  const handleWheel = (event) => {
+    const container = tagRef.current;
+    if (container) {
+      container.scrollTo({
+        left: container.scrollLeft + event.deltaY,
+        behavior: "smooth",
+      });
+    }
   };
 
   const handleSubmit = (e) => {
@@ -110,15 +122,32 @@ const CreateNewGroupModal = ({ isOpen, onClose }) => {
                       value={groupDescription}
                       onChange={(e) => setGroupDescription(e.target.value)}
                     ></textarea>
+                    <p className="font-semibold mt-2">Tags for Group</p>
+                    <p>Add tags to help people discover your group.</p>
+                    <ul
+                      className="flex flex-row max-w-full overflow-x-auto"
+                      ref={tagRef}
+                      onWheel={handleWheel}
+                    >
+                      {questionCategories.map((tag, index) => (
+                        <li className="flex border-2 p-1 m-1" key={index}>
+                          {tag}
+                        </li>
+                      ))}
+                    </ul>
                   </div>
                 </div>
+                <button
+                  type="submit"
+                  className="border-2 shadow-md p-1 ml-96 mt-4"
+                >
+                  Create
+                </button>
               </form>
             </div>
           </div>
         </div>
       </div>
-      {/* 
-      <input type="image" src="" alt="Choose a logo for the group" />; */}
     </>
   );
 };
