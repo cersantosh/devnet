@@ -25,6 +25,30 @@ const CreateNewGroupModal = ({ isOpen, onClose }) => {
   const [scrollEnabled, setScrollEnabled] = useState(false);
   const [groupPrivacy, setGroupPrivacy] = useState("");
 
+  const privacyOptions = [
+    {
+      id: 1,
+      mode: "Public",
+      label: "publicGroup",
+      description: "Anyone can view and contribute",
+      icon: "fa-solid fa-globe ml-4 mt-4",
+    },
+    {
+      id: 2,
+      mode: "Restricted",
+      label: "restrictedGroup",
+      description: "Anyone can view, but only approved users can contribute",
+      icon: "fa-solid fa-eye-slash ml-4 mt-4",
+    },
+    {
+      id: 3,
+      mode: "Private",
+      label: "privateGroup",
+      description: "Only approved users can view and contribute",
+      icon: "fa-solid fa-lock ml-4 mt-4",
+    },
+  ];
+
   const handlePhotoChange = (e) => {
     const file = e.target.files[0];
     setGroupPhoto(file);
@@ -150,63 +174,26 @@ const CreateNewGroupModal = ({ isOpen, onClose }) => {
                   <p className="font-semibold">Set privacy</p>
                   <p>Decide who can view and contribute to your group.</p>
                   <ul>
-                    <li className="hover:bg-slate-400">
-                      <label
-                        htmlFor="publicGroup"
-                        className="flex justify-between"
-                      >
-                        <i className="fa-solid fa-globe ml-4 mt-4"></i>
-                        <div>
-                          <p>Public</p>
-                          <p>Anyone can view and contribute</p>
-                        </div>
-                        <input
-                          type="radio"
-                          name="publicGroup"
-                          id="publicGroup"
-                          className="mr-4"
-                        />
-                      </label>
-                    </li>
-                    <li className="hover:bg-slate-400">
-                      <label
-                        htmlFor="restrictedGroup"
-                        className="flex justify-between"
-                      >
-                        <i className="fa-solid fa-eye-slash ml-4 mt-4"></i>
-                        <div>
-                          <p>Restricted</p>
-                          <p>
-                            Anyone can view, but only approved users can
-                            contribute
-                          </p>
-                        </div>
-                        <input
-                          type="radio"
-                          name="restrictedGroup"
-                          id="restrictedGroup"
-                          className="mr-4"
-                        />
-                      </label>
-                    </li>
-                    <li className="hover:bg-slate-400">
-                      <label
-                        htmlFor="privateGroup"
-                        className="flex justify-between"
-                      >
-                        <i className="fa-solid fa-lock ml-4 mt-4"></i>
-                        <div>
-                          <p>Private</p>
-                          <p>Only approved users can view and contribute</p>
-                        </div>
-                        <input
-                          type="radio"
-                          name="privateGroup"
-                          id="privateGroup"
-                          className="mr-4"
-                        />
-                      </label>
-                    </li>
+                    {privacyOptions.map((privacyOption) => (
+                      <li className="hover:bg-slate-400" key={privacyOption.id}>
+                        <label
+                          htmlFor={privacyOption.label}
+                          className="flex justify-between"
+                        >
+                          <i className={privacyOption.icon}></i>
+                          <div>
+                            <p>{privacyOption.mode}</p>
+                            <p>{privacyOption.description}</p>
+                          </div>
+                          <input
+                            type="radio"
+                            name={privacyOption.label}
+                            id={privacyOption.label}
+                            className="mr-4"
+                          />
+                        </label>
+                      </li>
+                    ))}
                   </ul>
                 </div>
                 <button
