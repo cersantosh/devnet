@@ -24,6 +24,7 @@ const CreateNewGroupModal = ({ isOpen, onClose }) => {
   const tagRef = useRef(null);
   const [scrollEnabled, setScrollEnabled] = useState(false);
   const [groupPrivacy, setGroupPrivacy] = useState("");
+  const [selectedOption, setSelectedOption] = useState(null); // State to track selected radio option
 
   const privacyOptions = [
     {
@@ -68,9 +69,19 @@ const CreateNewGroupModal = ({ isOpen, onClose }) => {
     }
   };
 
+  const handlePrivacyOptionChange = (optionId) => {
+    setSelectedOption(optionId); // Update selected option in state
+    privacyOptions.map((option) => {
+      if (optionId === option.id) {
+        setGroupPrivacy(option.mode);
+        console.log(groupPrivacy);
+      }
+    });
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-
+    const group = { name: groupName, mode: groupPrivacy };
     onClose();
   };
   return (
@@ -173,7 +184,7 @@ const CreateNewGroupModal = ({ isOpen, onClose }) => {
                   </div>
                   <p className="font-semibold">Set privacy</p>
                   <p>Decide who can view and contribute to your group.</p>
-                  <ul>
+                  <ul className="mt-4">
                     {privacyOptions.map((privacyOption) => (
                       <li className="hover:bg-slate-400" key={privacyOption.id}>
                         <label
@@ -187,9 +198,14 @@ const CreateNewGroupModal = ({ isOpen, onClose }) => {
                           </div>
                           <input
                             type="radio"
-                            name={privacyOption.label}
-                            id={privacyOption.label}
                             className="mr-4"
+                            name={privacyOption.label}
+                            value={privacyOption.id}
+                            id={privacyOption.label}
+                            checked={selectedOption === privacyOption.id}
+                            onChange={() =>
+                              handlePrivacyOptionChange(privacyOption.id)
+                            }
                           />
                         </label>
                       </li>
