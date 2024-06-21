@@ -138,6 +138,7 @@ const CreateNewGroupModal = ({ isOpen, onClose }) => {
                       Group Name:
                     </label>
                     <input
+                      required
                       className="block border-2 border-gray-300 rounded-lg p-2"
                       type="text"
                       name="groupname"
@@ -157,6 +158,7 @@ const CreateNewGroupModal = ({ isOpen, onClose }) => {
                     </label>
                     <textarea
                       id="groupDescription"
+                      required
                       name="groupDescription"
                       className="block w-full border-2 border-gray-300 rounded-md mt-2"
                       rows="9"
@@ -198,6 +200,7 @@ const CreateNewGroupModal = ({ isOpen, onClose }) => {
                           </div>
                           <input
                             type="radio"
+                            required
                             className="mr-4"
                             name={privacyOption.label}
                             value={privacyOption.id}
@@ -212,12 +215,22 @@ const CreateNewGroupModal = ({ isOpen, onClose }) => {
                     ))}
                   </ul>
                 </div>
-                <button
-                  type="submit"
-                  className="border-2 shadow-md p-1 ml-96 mt-4"
-                >
-                  Create
-                </button>
+                <div className="flex">
+                  <button
+                    type="button"
+                    className="border-2 rounded-xl shadow-md p-1 ml-80 mt-4 hover:bg-slate-600 hover:text-white"
+                    onClick={onClose}
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    className="border-2 rounded-xl shadow-md p-1 ml-4 mt-4 hover:bg-blue-600 hover:text-white"
+                    onClick={""}
+                  >
+                    Create
+                  </button>
+                </div>
               </form>
             </div>
           </div>
