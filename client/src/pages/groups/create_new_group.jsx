@@ -22,10 +22,16 @@ const CreateNewGroupModal = ({ isOpen, onClose }) => {
   const [groupDescription, setGroupDescription] = useState("");
   const [groupPhoto, setGroupPhoto] = useState(null);
   const tagRef = useRef(null);
+  const [scrollEnabled, setScrollEnabled] = useState(false);
+  const [groupPrivacy, setGroupPrivacy] = useState("");
 
   const handlePhotoChange = (e) => {
     const file = e.target.files[0];
     setGroupPhoto(file);
+  };
+
+  const toggleScroll = () => {
+    setScrollEnabled(!scrollEnabled);
   };
 
   const handleWheel = (event) => {
@@ -47,8 +53,9 @@ const CreateNewGroupModal = ({ isOpen, onClose }) => {
     <>
       <div className="fixed z-10 inset-0">
         <div className="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+          {/* div for gray background */}
           <div className="fixed inset-0 transition-opacity" aria-hidden="true">
-            <div className="absolute inset-0 bg-gray-500 opacity-75"></div>
+            <div className="absolute inset-0 bg-gray-600 opacity-75"></div>
           </div>
 
           <span
@@ -58,10 +65,10 @@ const CreateNewGroupModal = ({ isOpen, onClose }) => {
             &#8203;
           </span>
           {/* div for the model */}
-          <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-y-auto h-full max-h-screen  shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+          <div className="inline-block align-bottom bg-white rounded-lg text-left h-full max-h-3/4 shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
             <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
               {/* div for close button */}
-              <div className="absolute top-0 right-0 pt-2 pr-2">
+              <div className="sticky top-0 right-0 pt-2 pr-2">
                 <button
                   onClick={onClose}
                   type="button"
@@ -85,8 +92,8 @@ const CreateNewGroupModal = ({ isOpen, onClose }) => {
                 </button>
               </div>
               <form onSubmit={handleSubmit}>
-                <div>
-                  <header className="font-bold text-xl text-center mt-2">
+                <div className="overflow-y-auto">
+                  <header className="sticky font-bold text-xl text-center mt-2">
                     Create a New Group
                   </header>
                   <div className="flex flex-col">
@@ -125,8 +132,12 @@ const CreateNewGroupModal = ({ isOpen, onClose }) => {
                     <p className="font-semibold mt-2">Tags for Group</p>
                     <p>Add tags to help people discover your group.</p>
                     <ul
-                      className="flex flex-row max-w-full overflow-x-auto"
+                      className={`flex flex-row max-w-full overflow-hidden ${
+                        scrollEnabled ? "overflow-x-auto" : ""
+                      }`}
                       ref={tagRef}
+                      onMouseEnter={toggleScroll}
+                      onMouseLeave={toggleScroll}
                       onWheel={handleWheel}
                     >
                       {questionCategories.map((tag, index) => (
@@ -136,6 +147,67 @@ const CreateNewGroupModal = ({ isOpen, onClose }) => {
                       ))}
                     </ul>
                   </div>
+                  <p className="font-semibold">Set privacy</p>
+                  <p>Decide who can view and contribute to your group.</p>
+                  <ul>
+                    <li className="hover:bg-slate-400">
+                      <label
+                        htmlFor="publicGroup"
+                        className="flex justify-between"
+                      >
+                        <i className="fa-solid fa-globe ml-4 mt-4"></i>
+                        <div>
+                          <p>Public</p>
+                          <p>Anyone can view and contribute</p>
+                        </div>
+                        <input
+                          type="radio"
+                          name="publicGroup"
+                          id="publicGroup"
+                          className="mr-4"
+                        />
+                      </label>
+                    </li>
+                    <li className="hover:bg-slate-400">
+                      <label
+                        htmlFor="restrictedGroup"
+                        className="flex justify-between"
+                      >
+                        <i className="fa-solid fa-eye-slash ml-4 mt-4"></i>
+                        <div>
+                          <p>Restricted</p>
+                          <p>
+                            Anyone can view, but only approved users can
+                            contribute
+                          </p>
+                        </div>
+                        <input
+                          type="radio"
+                          name="restrictedGroup"
+                          id="restrictedGroup"
+                          className="mr-4"
+                        />
+                      </label>
+                    </li>
+                    <li className="hover:bg-slate-400">
+                      <label
+                        htmlFor="privateGroup"
+                        className="flex justify-between"
+                      >
+                        <i className="fa-solid fa-lock ml-4 mt-4"></i>
+                        <div>
+                          <p>Private</p>
+                          <p>Only approved users can view and contribute</p>
+                        </div>
+                        <input
+                          type="radio"
+                          name="privateGroup"
+                          id="privateGroup"
+                          className="mr-4"
+                        />
+                      </label>
+                    </li>
+                  </ul>
                 </div>
                 <button
                   type="submit"
