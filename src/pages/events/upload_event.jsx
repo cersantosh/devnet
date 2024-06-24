@@ -6,20 +6,65 @@ import eventService from "../../services/event_service";
 const EventUploadForm = () => {
   const { register, handleSubmit } = useForm();
   const [selectedEventPoster, setSelectedEventPosition] = useState(null);
+  const [eventTitle, setEventTitle] = useState("");
+  const [eventType, setEventType] = useState("");
+  const [eventdescription, setEventDescription] = useState("");
+  const [eventDateTime, setDateTime] = useState("");
+  const [eventLocation, setEventLocation] = useState("");
+  const [eventOrganizerInfo, setEventOrganizerInfo] = useState("");
+  const [eventRegistrationLink, setEventRegistrationLink] = useState("");
   const handleEventPosterChange = (e) => {
     const file = e.target.files[0];
     setSelectedEventPosition(file);
   };
+  const handleEventTitle = (e) => {
+    setEventTitle(e.target.value);
+  };
+  const handleEventType = (e) => {
+    setEventType(e.target.value);
+  };
+  const handleEventDescription = (e) => {
+    setEventDescription(e.target.value);
+  };
+  const handleEventDateTime = (e) => {
+    setDateTime(e.target.value);
+  };
+  const handleEventLocation = (e) => {
+    setEventLocation(e.target.value);
+  };
+  const handleEventOrganizerInfo = (e) => {
+    setEventOrganizerInfo;
+    e.target.value;
+  };
+  const handleEventRegistrationLink = (e) => {
+    setEventRegistrationLink(e.target.value);
+  };
 
-   const handleEventSubmit = async (data) => {
-    await eventService.createEvent(data);
+  const handleEventSubmit = async (e) => {
+    e.preventDefault();
+    const eventDetails = new FormData();
+
+    eventDetails.append("event_poster", selectedEventPoster);
+    eventDetails.append("title", eventTitle);
+    eventDetails.append("event_type", eventType);
+    eventDetails.append("description", eventdescription);
+    eventDetails.append("event_date", eventDateTime);
+    eventDetails.append("location", eventLocation);
+    eventDetails.append("organizer_info", eventOrganizerInfo);
+    eventDetails.append("registration_link", eventRegistrationLink);
+    console.log(eventDetails);
+    try {
+      await eventService.createEvent(eventDetails);
+    } catch (error) {
+      console.error("Error creating event:", error);
+    }
   };
 
   return (
     <div className="container mx-auto mt-8 p-8 bg-white shadow-lg rounded-md">
       <h1 className="text-2xl font-bold mb-4">Upload an Event</h1>
 
-      <form onSubmit={handleSubmit(handleEventSubmit)}>
+      <form onSubmit={handleEventSubmit}>
         {/* Event Poster */}
         <div>
           <label className="block text-sm font-medium text-gray-600 mb-2">
@@ -46,7 +91,8 @@ const EventUploadForm = () => {
             type="text"
             className="mb-4 p-2 w-full border rounded-md"
             placeholder="Enter event title"
-            {...register("title")}
+            // {...register("title")}
+            onChange={handleEventTitle}
             required
           />
         </div>
@@ -58,7 +104,8 @@ const EventUploadForm = () => {
           </label>
           <select
             className="block border w-full px-4 py-2 mt-1 leading-5 border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-300 sm:text-sm"
-            {...register("event_type")}
+            // {...register("event_type")}
+            onChange={handleEventType}
             id="event-type"
           >
             <option value="hackathons">Hackathons</option>
@@ -75,7 +122,8 @@ const EventUploadForm = () => {
           <textarea
             placeholder="Enter event description"
             className="mb-4 p-2 w-full border rounded-md min-h-[100px]"
-            {...register("description")}
+            // {...register("description")}
+            onChange={handleEventDescription}
             required
           />
         </div>
@@ -88,7 +136,8 @@ const EventUploadForm = () => {
           <input
             type="datetime-local"
             className="mb-4 p-2 w-full border rounded-md"
-            {...register("event_date")}
+            // {...register("event_date")}
+            onChange={handleEventDateTime}
             required
           />
         </div>
@@ -102,7 +151,8 @@ const EventUploadForm = () => {
             type="text"
             className="mb-4 p-2 w-full border rounded-md"
             placeholder="Enter event location"
-            {...register("location")}
+            // {...register("location")}
+            onChange={handleEventLocation}
             required
           />
         </div>
@@ -115,7 +165,8 @@ const EventUploadForm = () => {
           <textarea
             placeholder="Enter organizer information"
             className="mb-4 p-2 w-full border rounded-md min-h-[100px]"
-            {...register("organizer_info")}
+            // {...register("organizer_info")}
+            onChange={handleEventOrganizerInfo}
             required
           />
         </div>
@@ -129,7 +180,8 @@ const EventUploadForm = () => {
             type="url"
             className="mb-4 p-2 w-full border rounded-md"
             placeholder="Enter registration link"
-            {...register("registration_link")}
+            // {...register("registration_link")}
+            onChange={handleEventRegistrationLink}
             required
           />
         </div>
