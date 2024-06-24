@@ -1,19 +1,25 @@
 import React, { useState } from "react";
+import { useForm } from "react-hook-form";
+import userService from "../../services/user_service";
+import eventService from "../../services/event_service";
 
 const EventUploadForm = () => {
+  const { register, handleSubmit } = useForm();
   const [selectedEventPoster, setSelectedEventPosition] = useState(null);
   const handleEventPosterChange = (e) => {
     const file = e.target.files[0];
     setSelectedEventPosition(file);
   };
 
-  const handleEventSubmit = () => {};
+   const handleEventSubmit = async (data) => {
+    await eventService.createEvent(data);
+  };
 
   return (
     <div className="container mx-auto mt-8 p-8 bg-white shadow-lg rounded-md">
       <h1 className="text-2xl font-bold mb-4">Upload an Event</h1>
 
-      <form>
+      <form onSubmit={handleSubmit(handleEventSubmit)}>
         {/* Event Poster */}
         <div>
           <label className="block text-sm font-medium text-gray-600 mb-2">
@@ -40,6 +46,7 @@ const EventUploadForm = () => {
             type="text"
             className="mb-4 p-2 w-full border rounded-md"
             placeholder="Enter event title"
+            {...register("title")}
             required
           />
         </div>
@@ -51,7 +58,7 @@ const EventUploadForm = () => {
           </label>
           <select
             className="block border w-full px-4 py-2 mt-1 leading-5 border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-300 sm:text-sm"
-            name="event-type"
+            {...register("event_type")}
             id="event-type"
           >
             <option value="hackathons">Hackathons</option>
@@ -68,6 +75,7 @@ const EventUploadForm = () => {
           <textarea
             placeholder="Enter event description"
             className="mb-4 p-2 w-full border rounded-md min-h-[100px]"
+            {...register("description")}
             required
           />
         </div>
@@ -80,6 +88,7 @@ const EventUploadForm = () => {
           <input
             type="datetime-local"
             className="mb-4 p-2 w-full border rounded-md"
+            {...register("event_date")}
             required
           />
         </div>
@@ -93,6 +102,7 @@ const EventUploadForm = () => {
             type="text"
             className="mb-4 p-2 w-full border rounded-md"
             placeholder="Enter event location"
+            {...register("location")}
             required
           />
         </div>
@@ -105,6 +115,7 @@ const EventUploadForm = () => {
           <textarea
             placeholder="Enter organizer information"
             className="mb-4 p-2 w-full border rounded-md min-h-[100px]"
+            {...register("organizer_info")}
             required
           />
         </div>
@@ -118,6 +129,7 @@ const EventUploadForm = () => {
             type="url"
             className="mb-4 p-2 w-full border rounded-md"
             placeholder="Enter registration link"
+            {...register("registration_link")}
             required
           />
         </div>
